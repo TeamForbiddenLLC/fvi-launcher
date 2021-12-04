@@ -40,7 +40,7 @@ Rectangle {
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
 
-        onClicked: Qt.openUrlExternally("http://" + root.url)
+        onClicked: Qt.openUrlExternally("https://" + root.url)
     }
 
 

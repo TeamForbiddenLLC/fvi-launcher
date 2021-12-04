@@ -31,6 +31,7 @@ id: root
         sourceModel: collection.games
         filters: [
             ValueFilter { roleName: "favorite"; value: true; enabled: showFavs },
+            ValueFilter { roleName: "whitelist"; value: true; enabled: showWhitelists },
             RegExpFilter { roleName: "title"; pattern: searchTerm; caseSensitivity: Qt.CaseInsensitive; enabled: searchTerm != "" },
             IndexFilter { maximumIndex: max - 1; enabled: max }
         ]

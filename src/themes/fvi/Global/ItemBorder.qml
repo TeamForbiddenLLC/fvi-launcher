@@ -24,7 +24,11 @@ id: root
     id: border
 
         anchors.fill: parent
-        source: "../assets/images/gradient.png"
+  source: if (modelData.tier === "0") return "http://forbidden.gg/assets/media/theme/gradient.png"
+      else if (modelData.tier === "1") return "http://forbidden.gg/assets/media/theme/gradient1.png"
+      else if (modelData.tier === "2") return "http://forbidden.gg/assets/media/theme/gradient2.png"
+      else if (modelData.tier === "3") return "http://forbidden.gg/assets/media/theme/gradient3.png"	  
+      else return "http://forbidden.gg/assets/media/theme/gradient.png"
         asynchronous: true
         visible: false
         
@@ -49,10 +53,11 @@ id: root
     id: mask
 
         anchors.fill: parent
-        source: "../assets/images/borderimage.gif"
+        source: "http://forbidden.gg/assets/media/theme/borderimage.gif"
         border { left: vpx(5); right: vpx(5); top: vpx(5); bottom: vpx(5);}
         smooth: false
         visible: false
+        asynchronous: true
     }
 
     OpacityMask {

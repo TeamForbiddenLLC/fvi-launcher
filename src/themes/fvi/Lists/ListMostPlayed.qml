@@ -19,29 +19,30 @@ import SortFilterProxyModel 0.2
 
 Item {
 id: root
-
+    
     readonly property alias games: gamesFiltered
-    function currentGame(index) { return api.allGames.get(mostPlayedGames.mapToSource(index)) }
-    property int max: mostPlayedGames.count
+    function currentGame(index) { return api.allGames.get(lastplayedWhitelists.mapToSource(index)) }
+    property int max: lastplayedWhitelists.count
 
     SortFilterProxyModel {
-    id: mostPlayedGames
+    id: lastplayedWhitelists
 
         sourceModel: api.allGames
-        sorters: RoleSorter { roleName: "playCount"; sortOrder: Qt.DescendingOrder }
+        filters: ValueFilter { roleName: "whitelist"; value: true }
+        sorters: RoleSorter { roleName: "lastPlayed"; sortOrder: Qt.DescendingOrder; }
     }
 
     SortFilterProxyModel {
     id: gamesFiltered
 
-        sourceModel: mostPlayedGames
-        filters: IndexFilter { maximumIndex: max - 1 }
+        sourceModel: lastplayedWhitelists
+        filters: IndexFilter { maximumIndex: max - 1}
     }
 
     property var collection: {
         return {
-            name:       "Most Played Games",
-            shortName:  "mostplayed",
+            name:       "Items",
+            shortName:  "whitelists",
             games:      gamesFiltered
         }
     }

@@ -274,14 +274,6 @@ id: root
                     onHighlighted: {
                         gamegrid.currentIndex = index;
                     }
-                    Keys.onPressed: {
-                        // Toggle favorite
-                        if (api.keys.isDetails(event) && !event.isAutoRepeat) {
-                            event.accepted = true;
-                            sfxToggle.play();
-                            modelData.favorite = !modelData.favorite;
-                        }
-                    }
 
                 }
             }
@@ -305,14 +297,6 @@ id: root
                     }
                     onHighlighted: {
                         gamegrid.currentIndex = index;
-                    }
-                    Keys.onPressed: {
-                        // Toggle favorite
-                        if (api.keys.isDetails(event) && !event.isAutoRepeat) {
-                            event.accepted = true;
-                            sfxToggle.play();
-                            modelData.favorite = !modelData.favorite;
-                        }
                     }
                 }
             }
@@ -448,14 +432,6 @@ id: root
         ListElement {
             name: "Back"
             button: "cancel"
-        }
-        ListElement {
-            name: "Toggle favorite"
-            button: "details"
-        }
-        ListElement {
-            name: "Filters"
-            button: "filters"
         }
         ListElement {
             name: "View details"

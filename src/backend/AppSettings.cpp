@@ -22,6 +22,7 @@
 #include "parsers/SettingsFile.h"
 
 #include "providers/pegasus_favorites/Favorites.h"
+#include "providers/pegasus_whitelists/Whitelists.h"
 #include "providers/pegasus_metadata/PegasusProvider.h"
 #include "providers/pegasus_playtime/PlaytimeStats.h"
 
@@ -74,6 +75,7 @@ std::vector<std::unique_ptr<providers::Provider>> create_providers()
     std::vector<std::unique_ptr<providers::Provider>> out;
         MKENTRY(pegasus::PegasusProvider)
         MKENTRY(favorites::Favorites)
+        MKENTRY(whitelists::Whitelists)
         MKENTRY(playtime::PlaytimeStats)
 
     out.shrink_to_fit();
@@ -90,6 +92,7 @@ namespace appsettings {
 General::General()
     : DEFAULT_LOCALE(QStringLiteral("en"))
     , DEFAULT_THEME(QStringLiteral(":/themes/fvi/"))
+    , DEBUG_THEME(QStringLiteral("themes/debug/"))
     , portable(true)
     , fullscreen(false)
     , mouse_support(true)

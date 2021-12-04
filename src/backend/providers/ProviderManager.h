@@ -40,6 +40,7 @@ public:
     void onGameLaunched(model::GameFile* const);
     void onGameFinished(model::GameFile* const);
     void onGameFavoriteChanged(const QVector<model::Game*>&);
+    void onGameWhitelistChanged(const QVector<model::Game*>&);    
 
 signals:
     void gameCountChanged(int);

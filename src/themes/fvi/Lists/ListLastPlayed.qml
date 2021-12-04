@@ -28,6 +28,7 @@ id: root
     id: lastPlayedGames
 
         sourceModel: api.allGames
+        filters: ValueFilter { roleName: "item"; value: false } 	
         sorters: RoleSorter { roleName: "lastPlayed"; sortOrder: Qt.DescendingOrder }
     }
 
@@ -40,7 +41,7 @@ id: root
 
     property var collection: {
         return {
-            name:       "Continue Playing",
+            name:       "Suggestions",
             shortName:  "lastplayed",
             games:      gamesFiltered
         }

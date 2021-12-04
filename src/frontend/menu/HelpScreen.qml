@@ -85,10 +85,10 @@ MenuScreen {
                 width: parent.width
 
                 SectionTitle {
-                    text: qsTr("Help") + api.tr
+                    text: qsTr("Source Code") + api.tr
                 }
                 Text {
-                    text: qsTr("You can find the documentation and user guide on the following address:")
+                    text: qsTr("You can find the Source Code on the following address:")
                         + api.tr
                     color: "#eee"
                     font.pixelSize: bodyFontSize
@@ -97,7 +97,7 @@ MenuScreen {
                     padding: bodyFontSize
                 }
                 QrBox {
-                    url: "warforkwiki.com"
+                    url: "github.com/TeamForbiddenLLC/fvi-launcher"
                     image: "qrc:/frontend/assets/qr-docs.png"
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
@@ -214,6 +214,52 @@ MenuScreen {
                         leftPadding: bodyFontSize * 0.75
                     }
                 }
+                Row {
+                    id: steamsdk
+                    width: parent.width
+                    leftPadding: bodyFontSize * 1.3
+                    rightPadding: leftPadding
+                    topPadding: bodyFontSize * 0.15
+                    bottomPadding: topPadding
+
+                    Image {
+                        source: "qrc:/frontend/assets/steam.png"
+                        width: vpx(40)
+                        fillMode: Image.PreserveAspectFit
+                    }
+                    Text {
+                        text: "Uses Steamworks SDK. Copyright \u00a9 Valve Software. All rights reserved."
+                        color: licenses.textColor
+                        font.pixelSize: licenses.textSize
+                        font.family: globalFonts.sans
+
+                        anchors.verticalCenter: parent.verticalCenter
+                        leftPadding: bodyFontSize * 0.75
+                    }
+                }
+                Row {
+                    id: steamworks
+                    width: parent.width
+                    leftPadding: bodyFontSize * 1.3
+                    rightPadding: leftPadding
+                    topPadding: bodyFontSize * 0.15
+                    bottomPadding: topPadding
+
+                    Image {
+                        source: "qrc:/frontend/assets/steam.png"
+                        width: vpx(40)
+                        fillMode: Image.PreserveAspectFit
+                    }
+                    Text {
+                        text: "Uses Steamworks implementation by Jannik Kolodziej."
+                        color: licenses.textColor
+                        font.pixelSize: licenses.textSize
+                        font.family: globalFonts.sans
+
+                        anchors.verticalCenter: parent.verticalCenter
+                        leftPadding: bodyFontSize * 0.75
+                    }
+                }				
                 Row {
                     id: qt
                     width: parent.width

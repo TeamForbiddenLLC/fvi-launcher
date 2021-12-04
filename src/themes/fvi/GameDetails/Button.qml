@@ -19,6 +19,7 @@ import QtQuick 2.0
 FocusScope {
 id: root
 
+    property string color
     property bool selected
     property alias text: buttonlabel.text
     property alias icon: buttonicon.source
@@ -35,7 +36,7 @@ id: root
         width: (buttonlabel.text !== "") ? buttonlabel.x + buttonlabel.contentWidth + buttonMargin : height
         Behavior on width { NumberAnimation { duration: 100 } }
         height: vpx(50)
-        color: selected ? theme.accent : "transparent"
+		color: selected ? (root.color || theme.accent) : 'transparent'
         radius: height/2
         border.width: selected ? 0 : 2
         border.color: "white"
@@ -44,7 +45,7 @@ id: root
         Image {
         id: buttonicon
 
-            source: "../assets/images/icon_play.svg"
+            source: "http://forbidden.gg/assets/media/theme/icon_play.svg"
             width: parent.height - vpx(30)
             height: parent.height - vpx(30)
             fillMode: Image.PreserveAspectFit

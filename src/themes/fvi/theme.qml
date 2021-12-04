@@ -37,7 +37,7 @@ id: root
         return {
             PlatformView:                  api.memory.has("Game View") ? api.memory.get("Game View") : "Grid",
             GridThumbnail:                 api.memory.has("Grid Thumbnail") ? api.memory.get("Grid Thumbnail") : "Dynamic Wide",
-            GridColumns:                   api.memory.has("Number of columns") ? api.memory.get("Number of columns") : "3",
+            GridColumns:                   api.memory.has("Number of columns") ? api.memory.get("Number of columns") : "6",
             GameBackground:                api.memory.has("Game Background") ? api.memory.get("Game Background") : "Screenshot",
             GameLogo:                      api.memory.has("Game Logo") ? api.memory.get("Game Logo") : "Show",
             GameRandomBackground:          api.memory.has("Randomize Background") ? api.memory.get("Randomize Background") : "No",
@@ -47,29 +47,35 @@ id: root
             AllowThumbVideoAudio:          api.memory.has("Play video thumbnail audio") ? api.memory.get("Play video thumbnail audio") : "No",
             HideLogo:                      api.memory.has("Hide logo when thumbnail video plays") ? api.memory.get("Hide logo when thumbnail video plays") : "No",
             HideButtonHelp:                api.memory.has("Hide button help") ? api.memory.get("Hide button help") : "No",
-            MouseHover:                    api.memory.has("Enable mouse hover") ? api.memory.get("Enable mouse hover") : "No",
-            AlwaysShowTitles:              api.memory.has("Always show titles") ? api.memory.get("Always show titles") : "No",
+            PlaySoundEffects:              api.memory.has("Play sound effects") ? api.memory.get("Play sound effects") : "Yes",
+			PlayBannerVideo:       		   api.memory.has("Play banner video") ? api.memory.get("Play banner video") : "Yes",
+            MouseHover:                    api.memory.has("Enable mouse hover") ? api.memory.get("Enable mouse hover") : "Yes",
+            AlwaysShowTitles:              api.memory.has("Always show titles") ? api.memory.get("Always show titles") : "Yes",
             AnimateHighlight:              api.memory.has("Animate highlight") ? api.memory.get("Animate highlight") : "No",
             AllowVideoPreviewAudio:        api.memory.has("Video preview audio") ? api.memory.get("Video preview audio") : "No",
             ShowScanlines:                 api.memory.has("Show scanlines") ? api.memory.get("Show scanlines") : "Yes",
-            DetailsDefault:                api.memory.has("Default to full details") ? api.memory.get("Default to full details") : "No",
+            DetailsDefault:                api.memory.has("Default to full details") ? api.memory.get("Default to full details") : "Yes",
             ShowcaseColumns:               api.memory.has("Number of games showcased") ? api.memory.get("Number of games showcased") : "15",
             ShowcaseFeaturedCollection:    api.memory.has("Featured collection") ? api.memory.get("Featured collection") : "Favorites",
-            ShowcaseCollection1:           api.memory.has("Collection 1") ? api.memory.get("Collection 1") : "Recently Played",
-            ShowcaseCollection1_Thumbnail: api.memory.has("Collection 1 - Thumbnail") ? api.memory.get("Collection 1 - Thumbnail") : "Wide",
-            ShowcaseCollection2:           api.memory.has("Collection 2") ? api.memory.get("Collection 2") : "Most Played",
-            ShowcaseCollection2_Thumbnail: api.memory.has("Collection 2 - Thumbnail") ? api.memory.get("Collection 2 - Thumbnail") : "Tall",
-            ShowcaseCollection3:           api.memory.has("Collection 3") ? api.memory.get("Collection 3") : "Top by Publisher",
-            ShowcaseCollection3_Thumbnail: api.memory.has("Collection 3 - Thumbnail") ? api.memory.get("Collection 3 - Thumbnail") : "Wide",
-            ShowcaseCollection4:           api.memory.has("Collection 4") ? api.memory.get("Collection 4") : "Top by Genre",
-            ShowcaseCollection4_Thumbnail: api.memory.has("Collection 4 - Thumbnail") ? api.memory.get("Collection 4 - Thumbnail") : "Tall",
+            ShowcaseCollection1:           api.memory.has("Collection 1") ? api.memory.get("Collection 1") : "Most Played",
+            ShowcaseCollection1_Thumbnail: api.memory.has("Collection 1 - Thumbnail") ? api.memory.get("Collection 1 - Thumbnail") : "Tall",
+            ShowcaseCollection2:           api.memory.has("Collection 2") ? api.memory.get("Collection 2") : "Recently Played",
+            ShowcaseCollection2_Thumbnail: api.memory.has("Collection 2 - Thumbnail") ? api.memory.get("Collection 2 - Thumbnail") : "Wide",
+            ShowcaseCollection3:           api.memory.has("Collection 3") ? api.memory.get("Collection 3") : "None",
+            ShowcaseCollection3_Thumbnail: api.memory.has("Collection 3 - Thumbnail") ? api.memory.get("Collection 3 - Thumbnail") : "Tall",
+            ShowcaseCollection4:           api.memory.has("Collection 4") ? api.memory.get("Collection 4") : "None",
+            ShowcaseCollection4_Thumbnail: api.memory.has("Collection 4 - Thumbnail") ? api.memory.get("Collection 4 - Thumbnail") : "Wide",
             ShowcaseCollection5:           api.memory.has("Collection 5") ? api.memory.get("Collection 5") : "None",
-            ShowcaseCollection5_Thumbnail: api.memory.has("Collection 5 - Thumbnail") ? api.memory.get("Collection 5 - Thumbnail") : "Wide",
+            ShowcaseCollection5_Thumbnail: api.memory.has("Collection 5 - Thumbnail") ? api.memory.get("Collection 5 - Thumbnail") : "Tall",
             WideRatio:                     api.memory.has("Wide - Ratio") ? api.memory.get("Wide - Ratio") : "0.64",
-            TallRatio:                     api.memory.has("Tall - Ratio") ? api.memory.get("Tall - Ratio") : "0.66"
-            
+            TallRatio:                     api.memory.has("Tall - Ratio") ? api.memory.get("Tall - Ratio") : "0.66",
+            Skin:                          api.memory.has("Skin") ? api.memory.get("Skin") : "1",
+        
         }
     }
+
+    // Skin: 1. Warfork 2. Amber, 3. Buck, 4. Rufus, 5. Serena, 6. Hamilton, 7. Leon
+    property var skininfo
 
     // Collections
     property int currentCollectionIndex: 0
@@ -88,7 +94,8 @@ id: root
 
     // Filtering options
     property bool showFavs: false
-	property var sortByFilter: ["title", "lastPlayed", "playCount", "rating"]
+    property bool showWhitelists: false
+    property var sortByFilter: ["title"]
     property int sortByIndex: 0
     property var orderBy: Qt.AscendingOrder
     property string searchTerm: ""
@@ -105,6 +112,11 @@ id: root
     // Functions for switching currently active collection
     function toggleFavs() {
         showFavs = !showFavs;
+    }
+    
+    // Functions for switching currently active collection
+    function toggleWhitelists() {
+        showWhitelists = !showWhitelists;
     }
 
     function cycleSort() {
@@ -124,13 +136,13 @@ id: root
     // Launch the current game
     function launchGame(game) {
         if (game !== null) {
-            if (game.collections.get(0).name === "Steam")
+            //if (game.collections.get(0).name === "Steam")
                 launchGameScreen();
 
             saveCurrentState(game);
             game.launch();
         } else {
-            if (currentGame.collections.get(0).name === "Steam")
+            //if (currentGame.collections.get(0).name === "Steam")
                 launchGameScreen();
 
             saveCurrentState(currentGame);
@@ -183,12 +195,16 @@ id: root
         api.memory.unset('To Game');
     }
 
-    // Theme settings
+
+ // Theme settings
     property var theme: {
         return {
             main:           "#0c1d2c",
             secondary:      "#20282f",
             accent:         "#eb8c8a",
+            accent1:        "#c78ce5",
+            accent2:        "#eb8c8a",
+            accent3:        "#8cb8e5",			
             highlight:      "#eb8c8a",
             text:           "#ececec",
             button:         "#eb8c8a",
@@ -218,6 +234,21 @@ id: root
         State {
             name: "settingsscreen";
         },
+        State {
+            name: "vanityscreen";
+        },
+        State {
+            name: "welcomescreen";
+        },		
+		State {
+            name: "unlockscreen";
+        },
+		State {
+            name: "launchscreen";
+        },
+		State {
+            name: "signaturescreen";
+        },		
         State {
             name: "launchgamescreen";
         }
@@ -260,43 +291,90 @@ id: root
         lastState.push(state);
         root.state = "gameviewscreen";
     }
-
-    function chatScreen() {
+	
+	    function chatScreen() {
         sfxAccept.play();
-        Qt.openUrlExternally("https://discord.gg/VY95TKZ");
+        Qt.openUrlExternally("https://warfork.com/discord");
+		root.state = "showcasescreen";
     }
 	
     function websiteScreen() {
         sfxAccept.play();
         Qt.openUrlExternally("https://warfork.com");
+		root.state = "showcasescreen";
     }	
 
     function wikiScreen() {
         sfxAccept.play();
         Qt.openUrlExternally("https://warforkwiki.com");
+		root.state = "showcasescreen";
     }
 	
 	function eventsScreen() {
         sfxAccept.play();
         Qt.openUrlExternally("https://steamcommunity.com/app/671610/eventcomments");
+		root.state = "showcasescreen";
     }
 	
     function twitterScreen() {
         sfxAccept.play();
         Qt.openUrlExternally("https://twitter.com/warforksocial");
+		root.state = "showcasescreen";
     }	
 
-    function facebookScreen() {
+	function informationScreen() {
+
+       // if (settings.Skin == 2){ skininfo = "amber" }
+       // if (settings.Skin == 3){ skininfo = "buck" }
+       // if (settings.Skin == 4){ skininfo = "rufus" }
+       // if (settings.Skin == 5){ skininfo = "serena" }
+       // if (settings.Skin == 6){ skininfo = "hamilton" }
+       // if (settings.Skin == 7){ skininfo = "leon" }
+
         sfxAccept.play();
-        Qt.openUrlExternally("https://facebook.com");
+		Qt.openUrlExternally("https://warfork.com/?f=" + skininfo);
+		root.state = "showcasescreen";
     }
-	
+
     function settingsScreen() {
         sfxAccept.play();
         lastState.push(state);
         root.state = "settingsscreen";
     }
+	
+	function unlockScreen() {
+        sfxAccept.play();
+        lastState.push(state);
+        root.state = "unlockscreen";
+    }
 
+	function launchScreen() {
+        sfxAccept.play();
+        lastState.push(state);
+        root.state = "launchscreen";
+    }
+	
+	function signatureScreen() {
+        sfxAccept.play();
+        lastState.push(state);
+        root.state = "signaturescreen";
+
+    }
+
+	function vanityScreen() {
+        sfxAccept.play();
+        lastState.push(state);
+        root.state = "vanityscreen";
+
+    }
+	
+	function welcomeScreen() {
+        sfxAccept.play();
+        lastState.push(state);
+        root.state = "welcomescreen";
+
+    }
+	
     function launchGameScreen() {
         sfxAccept.play();
         lastState.push(state);
@@ -335,75 +413,220 @@ id: root
         color: theme.main
     }
 
-    ShowcaseViewMenu {
+    Loader  {
     id: showcaseLoader
 
         focus: (root.state === "showcasescreen")
-        visible: opacity !== 0
+        active: opacity !== 0
         opacity: focus ? 1 : 0
         Behavior on opacity { PropertyAnimation { duration: transitionTime } }
 
         anchors.fill: parent
+        sourceComponent: showcaseview
+        asynchronous: true
     }
 
-    GridViewMenu {
+    Loader  {
     id: gridviewloader
 
         focus: (root.state === "softwaregridscreen")
-        visible: opacity !== 0
+        active: opacity !== 0
         opacity: focus ? 1 : 0
         Behavior on opacity { PropertyAnimation { duration: transitionTime } }
 
         anchors.fill: parent
+        sourceComponent: gridview
+        asynchronous: true
     }
 
-    SoftwareListMenu {
+    Loader  {
     id: listviewloader
 
         focus: (root.state === "softwarescreen")
-        visible: opacity !== 0
+        active: opacity !== 0
         opacity: focus ? 1 : 0
         Behavior on opacity { PropertyAnimation { duration: transitionTime } }
 
         anchors.fill: parent
+        sourceComponent: listview
+        asynchronous: true
     }
 
-    GameView {
+    Loader  {
     id: gameviewloader
 
         focus: (root.state === "gameviewscreen")
-        visible: opacity !== 0
-        onVisibleChanged: if (!active) popLastGame();
+        active: opacity !== 0
+        onActiveChanged: if (!active) popLastGame();
         opacity: focus ? 1 : 0
         Behavior on opacity { PropertyAnimation { duration: transitionTime } }
 
         anchors.fill: parent
-        game: currentGame
+        sourceComponent: gameview
+        asynchronous: true
+        //game: currentGame
     }
 
-    LaunchGame {
+    Loader  {
     id: launchgameloader
 
         focus: (root.state === "launchgamescreen")
-        visible: opacity !== 0
+        active: opacity !== 0
         opacity: focus ? 1 : 0
         Behavior on opacity { PropertyAnimation { duration: transitionTime } }
 
         anchors.fill: parent
+        sourceComponent: launchgameview
+        asynchronous: true
     }
 
-    SettingsScreen {
+    Loader  {
+    id: unlockloader
+
+        focus: (root.state === "unlockscreen")
+        active: opacity !== 0
+        opacity: focus ? 1 : 0
+        Behavior on opacity { PropertyAnimation { duration: transitionTime } }
+
+        anchors.fill: parent
+        sourceComponent: unlockview
+        asynchronous: true
+    }
+
+    Loader  {
+    id: launchloader
+
+        focus: (root.state === "launchscreen")
+        active: opacity !== 0
+        opacity: focus ? 1 : 0
+        Behavior on opacity { PropertyAnimation { duration: transitionTime } }
+
+        anchors.fill: parent
+        sourceComponent: launchview
+        asynchronous: true
+    }
+	
+    Loader  {
+    id: externalloader
+
+        focus: (root.state === "signaturescreen")
+        active: opacity !== 0
+        opacity: focus ? 1 : 0
+        Behavior on opacity { PropertyAnimation { duration: transitionTime } }
+
+        anchors.fill: parent
+        sourceComponent: externalview
+        asynchronous: true
+    }	
+	
+    Loader  {
     id: settingsloader
 
         focus: (root.state === "settingsscreen")
-        visible: opacity !== 0
+        active: opacity !== 0
         opacity: focus ? 1 : 0
         Behavior on opacity { PropertyAnimation { duration: transitionTime } }
 
         anchors.fill: parent
+        sourceComponent: settingsview
+        asynchronous: true
     }
 
-    
+    Loader  {
+    id: vanityloader
+
+        focus: (root.state === "vanityscreen")
+        active: opacity !== 0
+        opacity: focus ? 1 : 0
+        Behavior on opacity { PropertyAnimation { duration: transitionTime } }
+
+        anchors.fill: parent
+        sourceComponent: vanityview
+        asynchronous: true
+    }
+
+    Loader  {
+    id: welcomeloader
+
+        focus: (root.state === "welcomescreen")
+        active: opacity !== 0
+        opacity: focus ? 1 : 0
+        Behavior on opacity { PropertyAnimation { duration: transitionTime } }
+
+        anchors.fill: parent
+        sourceComponent: welcomeview
+        asynchronous: true
+    }
+	
+    Component {
+    id: showcaseview
+
+        ShowcaseViewMenu { focus: true }
+    }
+
+    Component {
+    id: gridview
+
+        GridViewMenu { focus: true }
+    }
+
+    Component {
+    id: listview
+
+        SoftwareListMenu { focus: true }
+    }
+
+    Component {
+    id: gameview
+
+        GameView {
+            focus: true
+            game: currentGame
+        }
+    }
+
+    Component {
+    id: launchgameview
+
+        LaunchGame { focus: true }
+    }
+
+    Component {
+    id: externalview
+
+        SignatureScreen { focus: true }
+    }
+	
+	 Component {
+    id: unlockview
+
+        UnlockScreen { focus: true }
+    }
+
+    Component {
+    id: launchview
+
+        LaunchScreen { focus: true }
+    }
+
+    Component {
+    id: settingsview
+
+        SettingsScreen { focus: true }
+    }
+
+    Component {
+    id: vanityview
+
+        VanityScreen { focus: true }
+    }
+	
+	Component {
+    id: welcomeview
+
+        WelcomeScreen { focus: true }
+    }
+    	
     // Button help
     property var currentHelpbarModel
     ButtonHelpBar {
@@ -422,24 +645,26 @@ id: root
     ///////////////////
     SoundEffect {
         id: sfxNav
-        source: "assets/sfx/navigation.wav"
-        volume: 1.0
+        source: "http://forbidden.gg/assets/media/theme/sfx/navigation.wav"
+        volume: (settings.PlaySoundEffects === "Yes") ? 1.0 : 0
     }
 
     SoundEffect {
         id: sfxBack
-        source: "assets/sfx/back.wav"
-        volume: 1.0
+        source: "http://forbidden.gg/assets/media/theme/sfx/back.wav"
+        volume: (settings.PlaySoundEffects === "Yes") ? 1.0 : 0
     }
 
     SoundEffect {
         id: sfxAccept
-        source: "assets/sfx/accept.wav"
+        source: "http://forbidden.gg/assets/media/theme/sfx/accept.wav"
+        volume: (settings.PlaySoundEffects === "Yes") ? 1.0 : 0
     }
 
     SoundEffect {
         id: sfxToggle
-        source: "assets/sfx/toggle.wav"
+        source: "http://forbidden.gg/assets/media/theme/sfx/toggle.wav"
+        volume: (settings.PlaySoundEffects === "Yes") ? 1.0 : 0
     }
     
 }

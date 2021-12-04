@@ -16,9 +16,9 @@
   </provides>
 
   <screenshots>
-    <screenshot type="default"><image>https://forbidden.gg/images/screens/s0.jpg</image></screenshot>
-    <screenshot><image>https://forbidden.gg/images/screens/s1.jpg</image></screenshot>
-    <screenshot><image>https://forbidden.gg/images/screens/s2.jpg</image></screenshot>
+    <screenshot type="default"><image>https://forbidden.gg/assets/media/warfork/ss_1.jpg</image></screenshot>
+    <screenshot><image>https://forbidden.gg/assets/media/warfork/ss_2.jpg</image></screenshot>
+    <screenshot><image>https://forbidden.gg/assets/media/warfork/ss_3.jpg</image></screenshot>
   </screenshots>
   <categories>
     <category>Game</category>
@@ -31,7 +31,7 @@
 
   <url type="homepage">https://forbidden.gg/</url>
   <url type="bugtracker">https://github.com/TeamForbiddenLLC/fvi-launcher/issues</url>
-  <url type="help">https://warforkwiki.com/</url>
+  <url type="help">https://warfork.com/discord</url>
   <url type="donation">https://forbidden.gg</url>
   <developer_name>Team Forbidden LLC</developer_name>
   <update_contact>mail_AT_forbidden.gg</update_contact>

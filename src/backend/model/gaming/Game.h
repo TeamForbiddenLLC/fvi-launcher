@@ -41,6 +41,30 @@ struct GameData {
     QStringList developers;
     QStringList publishers;
     QStringList genres;
+    QStringList websites;
+    QStringList sources;
+    QStringList versions;
+    QStringList items;
+    QStringList tiers;	
+    QStringList twitters;
+    QStringList facebooks;
+    QStringList instagrams;
+    QStringList snapchats;
+    QStringList pinterests;
+    QStringList youtubes;
+    QStringList tiktoks;
+    QStringList discords;
+    QStringList twitchs;
+    QStringList externalvideos; 
+    QStringList startups;
+    QStringList signatures;
+    QStringList vanitys;
+    QStringList versiontitles;
+    QStringList developertitles; 	
+    QStringList thankyous;	
+	QStringList whos;
+    QStringList artists;
+	QStringList welcomes;
     QStringList tags;
 
     short player_count = 1;
@@ -54,6 +78,7 @@ struct GameData {
     } playstats;
 
     bool is_favorite = false;
+    bool is_whitelist = false;
 
     struct LaunchParams {
         QString launch_cmd;
@@ -81,6 +106,30 @@ public:
     GETTER(const QStringList&, developerListConst, developers)
     GETTER(const QStringList&, publisherListConst, publishers)
     GETTER(const QStringList&, genreListConst, genres)
+    GETTER(const QStringList&, websiteListConst, websites)
+    GETTER(const QStringList&, sourceListConst, sources)
+    GETTER(const QStringList&, versionListConst, versions)
+    GETTER(const QStringList&, itemListConst, items)
+    GETTER(const QStringList&, tierListConst, tiers)	
+    GETTER(const QStringList&, twitterListConst, twitters)
+    GETTER(const QStringList&, facebookListConst, facebooks)
+    GETTER(const QStringList&, instagramListConst, instagrams)
+    GETTER(const QStringList&, snapchatListConst, snapchats)
+    GETTER(const QStringList&, pinterestListConst, pinterests)
+    GETTER(const QStringList&, youtubeListConst, youtubes)
+    GETTER(const QStringList&, tiktokListConst, tiktoks)                               
+    GETTER(const QStringList&, discordListConst, discords)   
+    GETTER(const QStringList&, twitchListConst, twitchs)
+    GETTER(const QStringList&, externalvideoListConst, externalvideos)
+    GETTER(const QStringList&, startupListConst, startups)
+    GETTER(const QStringList&, signatureListConst, signatures)	
+    GETTER(const QStringList&, vanityListConst, vanitys)	
+    GETTER(const QStringList&, thankyouListConst, thankyous)	
+    GETTER(const QStringList&, versiontitleListConst, versiontitles)
+    GETTER(const QStringList&, developertitleListConst, developertitles)	
+    GETTER(const QStringList&, whoListConst, whos)   
+    GETTER(const QStringList&, artistListConst, artists)  
+    GETTER(const QStringList&, welcomeListConst, welcomes)  	
     GETTER(const QStringList&, tagListConst, tags)
 
     GETTER(int, releaseYear, release_date.year())
@@ -91,6 +140,7 @@ public:
     GETTER(int, playTime, playstats.play_time)
     GETTER(const QDateTime&, lastPlayed, playstats.last_played)
     GETTER(bool, isFavorite, is_favorite)
+    GETTER(bool, isWhitelist, is_whitelist)
 
     GETTER(const QString&, launchCmd, launch_params.launch_cmd)
     GETTER(const QString&, launchWorkdir, launch_params.launch_workdir)
@@ -114,6 +164,7 @@ public:
     SETTER(QString, LaunchCmdBasedir, launch_params.relative_basedir)
 
     Game& setFavorite(bool val);
+    Game& setWhitelist(bool val);
 #undef SETTER
 
 
@@ -126,6 +177,30 @@ public:
     STRLIST(developer, developers)
     STRLIST(publisher, publishers)
     STRLIST(genre, genres)
+    STRLIST(website, websites)
+    STRLIST(source, sources)
+    STRLIST(version, versions)
+    STRLIST(tier, tiers)	
+    STRLIST(item, items)
+    STRLIST(twitter, twitters)
+    STRLIST(facebook, facebooks)
+    STRLIST(instagram, instagrams)
+    STRLIST(snapchat, snapchats)
+    STRLIST(pinterest, pinterests)
+    STRLIST(youtube, youtubes)
+    STRLIST(tiktok, tiktoks)
+    STRLIST(discord, discords)
+    STRLIST(twitch, twitchs)
+    STRLIST(versiontitle, versiontitles)
+    STRLIST(developertitle, developertitles)	
+    STRLIST(externalvideo, externalvideos) 
+    STRLIST(startup, startups) 
+    STRLIST(signature, signatures) 	
+    STRLIST(vanity, vanitys) 	
+    STRLIST(thankyou, thankyous)	
+    STRLIST(who, whos)
+    STRLIST(artist, artists) 
+    STRLIST(welcome, welcomes) 	
     STRLIST(tag, tags)
 #undef GEN
 
@@ -147,6 +222,7 @@ public:
     Q_PROPERTY(int playTime READ playTime NOTIFY playStatsChanged)
     Q_PROPERTY(QDateTime lastPlayed READ lastPlayed NOTIFY playStatsChanged)
     Q_PROPERTY(bool favorite READ isFavorite WRITE setFavorite NOTIFY favoriteChanged)
+    Q_PROPERTY(bool whitelist READ isWhitelist WRITE setWhitelist NOTIFY whitelistChanged)    
 
 
     Assets& assets() const { return *m_assets; }
@@ -167,6 +243,7 @@ private:
 signals:
     void launchFileSelectorRequested();
     void favoriteChanged();
+    void whitelistChanged();
     void playStatsChanged();
 
 private slots:

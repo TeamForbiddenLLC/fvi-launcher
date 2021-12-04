@@ -187,6 +187,102 @@ void Parser::parse_game_entry(const metafile::Entry& entry, providers::SearchCon
             for (const QString& line : entry.values)
                 m_cur_game->inner().genreList().append(line);
             break;
+         case GameAttrib::WEBSITES:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().websiteList().append(line);
+            break;
+         case GameAttrib::SOURCES:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().sourceList().append(line);
+            break;
+         case GameAttrib::VERSIONS:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().versionList().append(line);
+            break;
+         case GameAttrib::ITEMS:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().itemList().append(line);
+            break;
+         case GameAttrib::TIERS:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().tierList().append(line);
+            break;			
+         case GameAttrib::TWITTERS:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().twitterList().append(line);
+            break;
+         case GameAttrib::WHOS:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().whoList().append(line);
+            break;			
+         case GameAttrib::ARTISTS:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().artistList().append(line);
+            break;	
+         case GameAttrib::WELCOMES:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().welcomeList().append(line);
+            break;			
+         case GameAttrib::FACEBOOKS:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().facebookList().append(line);
+            break;
+         case GameAttrib::INSTAGRAMS:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().instagramList().append(line);
+            break;
+         case GameAttrib::SNAPCHATS:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().snapchatList().append(line);
+            break;
+         case GameAttrib::PINTERESTS:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().pinterestList().append(line);
+            break;
+         case GameAttrib::YOUTUBES:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().youtubeList().append(line);
+            break;
+         case GameAttrib::TIKTOKS:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().tiktokList().append(line);
+            break;
+         case GameAttrib::DISCORDS:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().discordList().append(line);
+            break;
+         case GameAttrib::TWITCHS:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().twitchList().append(line);
+            break;    
+         case GameAttrib::EXTERNALVIDEOS:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().externalvideoList().append(line);
+            break;        
+         case GameAttrib::STARTUPS:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().startupList().append(line);
+            break;   
+         case GameAttrib::SIGNATURES:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().signatureList().append(line);
+            break; 
+         case GameAttrib::VANITYS:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().vanityList().append(line);
+            break;   			
+         case GameAttrib::VERSIONTITLES:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().versiontitleList().append(line);
+            break;  
+         case GameAttrib::DEVELOPERTITLES:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().developertitleList().append(line);
+            break;  			
+         case GameAttrib::THANKYOUS:
+            for (const QString& line : entry.values)
+                m_cur_game->inner().thankyouList().append(line);
+            break; 			
         case GameAttrib::TAGS:
             for (const QString& line : entry.values)
                 m_cur_game->inner().tagList().append(line);

@@ -1,124 +1,45 @@
 <RCC>
     <qresource prefix="/themes">
-        <file>fvi/VerticalList/SoftwareListMenu.qml</file>
-        <file>fvi/utils.js</file>
-        <file>fvi/assets/images/license.txt</file>
-        <file>fvi/assets/images/warfork-logo.png</file>
-        <file>fvi/assets/images/scanlines_v3.png</file>
-        <file>fvi/assets/images/icon_mediaplayer.svg</file>
-        <file>fvi/assets/images/icon_back.svg</file>
-        <file>fvi/assets/images/icon_play.svg</file>
-        <file>fvi/assets/images/gradient.png</file>
-        <file>fvi/assets/images/favicon.svg</file>
-        <file>fvi/assets/images/loading.png</file>
-        <file>fvi/assets/images/searchicon.svg</file>
-        <file>fvi/assets/images/icon_unheart.svg</file>
-        <file>fvi/assets/images/ftueBG01.jpeg</file>
-        <file>fvi/assets/images/scanlines-vert.png</file>
-        <file>fvi/assets/images/logospng/afps.png</file>
-        <file>fvi/assets/images/logospng/complete.png</file>
-		<file>fvi/assets/images/logospng/dedicated.png</file>
-		<file>fvi/assets/images/logospng/sdk.png</file>
-		<file>fvi/assets/images/logospng/wf.png</file>
-		<file>fvi/assets/images/logospng/steam.png</file>
-		<file>fvi/assets/images/chat.png</file>
-		<file>fvi/assets/images/events.png</file>
-		<file>fvi/assets/images/facebook.png</file>
-		<file>fvi/assets/images/website.png</file>
-		<file>fvi/assets/images/wiki.png</file>
-		<file>fvi/assets/images/settings.png</file>
-		<file>fvi/assets/images/twitter.png</file>
-        <file>fvi/assets/images/controller/0.svg</file>
-        <file>fvi/assets/images/controller/right.svg</file>
-        <file>fvi/assets/images/controller/input_DPAD-L.png</file>
-        <file>fvi/assets/images/controller/1.svg</file>
-        <file>fvi/assets/images/controller/input_DPAD-D.png</file>
-        <file>fvi/assets/images/controller/0.png</file>
-        <file>fvi/assets/images/controller/input_STCK-D.png</file>
-        <file>fvi/assets/images/controller/5.png</file>
-        <file>fvi/assets/images/controller/input_TURBO.png</file>
-        <file>fvi/assets/images/controller/7.png</file>
-        <file>fvi/assets/images/controller/3.png</file>
-        <file>fvi/assets/images/controller/input_STCK-L.png</file>
-        <file>fvi/assets/images/controller/left.svg</file>
-        <file>fvi/assets/images/controller/controllerDpadDirections.svg</file>
-        <file>fvi/assets/images/controller/10.png</file>
-        <file>fvi/assets/images/controller/up.svg</file>
-        <file>fvi/assets/images/controller/8.png</file>
-        <file>fvi/assets/images/controller/down.svg</file>
-        <file>fvi/assets/images/controller/input_MOUSE.png</file>
-        <file>fvi/assets/images/controller/1.png</file>
-        <file>fvi/assets/images/controller/input_DPAD-U.png</file>
-        <file>fvi/assets/images/controller/input_STCK-R.png</file>
-        <file>fvi/assets/images/controller/input_DPAD-R.png</file>
-        <file>fvi/assets/images/controller/6.png</file>
-        <file>fvi/assets/images/controller/2.svg</file>
-        <file>fvi/assets/images/controller/11.png</file>
-        <file>fvi/assets/images/controller/4.png</file>
-        <file>fvi/assets/images/controller/input_STCK-U.png</file>
-        <file>fvi/assets/images/controller/3.svg</file>
-        <file>fvi/assets/images/controller/9.png</file>
-        <file>fvi/assets/images/controller/2.png</file>
-		<file>fvi/assets/images/keyboard/return.png</file>
-		<file>fvi/assets/images/keyboard/backspace.png</file>
-		<file>fvi/assets/images/keyboard/enter.png</file>
-		<file>fvi/assets/images/keyboard/a.png</file>
-		<file>fvi/assets/images/keyboard/b.png</file>
-		<file>fvi/assets/images/keyboard/d.png</file>
-		<file>fvi/assets/images/keyboard/e.png</file>
-		<file>fvi/assets/images/keyboard/esc.png</file>		
-		<file>fvi/assets/images/keyboard/f.png</file>
-		<file>fvi/assets/images/keyboard/f1.png</file>
-		<file>fvi/assets/images/keyboard/i.png</file>
-		<file>fvi/assets/images/keyboard/pgdwn.png</file>
-		<file>fvi/assets/images/keyboard/pgup.png</file>
-		<file>fvi/assets/images/keyboard/q.png</file>
-		<file>fvi/assets/images/keyboard/x.png</file>
-		<file>fvi/assets/images/keyboard/y.png</file>		
-        <file>fvi/assets/images/icon_heart.svg</file>
-        <file>fvi/assets/images/scanlines_v2.png</file>
-        <file>fvi/assets/images/borderimage.gif</file>
-        <file>fvi/assets/images/faviemptycon.svg</file>
-        <file>fvi/assets/images/scanlines.png</file>
-        <file>fvi/assets/images/icon_details.svg</file>
-        <file>fvi/assets/fonts/OpenSans-Semibold.ttf</file>
-        <file>fvi/assets/fonts/SourceSansPro-Bold.ttf</file>
-        <file>fvi/assets/fonts/OpenSans-Bold.ttf</file>
-        <file>fvi/assets/shaders/crt.frag</file>
-        <file>fvi/assets/sfx/navigation.wav</file>
-        <file>fvi/assets/sfx/back.wav</file>
-        <file>fvi/assets/sfx/accept.wav</file>
-        <file>fvi/assets/sfx/toggle.wav</file>
-        <file>fvi/assets/video/fvi.mp4</file>
-        <file>fvi/assets/video/license.txt</file>
-        <file>fvi/ShowcaseView/ShowcaseViewMenu.qml</file>
-        <file>fvi/theme.cfg</file>
-        <file>fvi/Search/Search.qml</file>
-        <file>fvi/theme.qml</file>
-        <file>fvi/Global/ItemHighlight.qml</file>
-        <file>fvi/Global/DynamicGridItem.qml</file>
-        <file>fvi/Global/HorizontalCollection.qml</file>
-        <file>fvi/Global/BoxArtGridItem.qml</file>
-		<file>fvi/Global/ButtonHelpBar.qml</file>
-        <file>fvi/Global/ItemBorder.qml</file>
-        <file>fvi/Global/GameInfo.qml</file>
-        <file>fvi/Global/HeaderBar.qml</file>
-        <file>fvi/GridView/GridSpacer.qml</file>
-        <file>fvi/GridView/GridViewMenu.qml</file>
-        <file>fvi/Lists/ListFavorites.qml</file>
-        <file>fvi/Lists/ListGenre.qml</file>
-        <file>fvi/Lists/ListLastPlayed.qml</file>
-        <file>fvi/Lists/ListPublisher.qml</file>
-        <file>fvi/Lists/ListTopGames.qml</file>
-        <file>fvi/Lists/ListMostPlayed.qml</file>
-        <file>fvi/Lists/ListAllGames.qml</file>
-        <file>fvi/Lists/ListCollectionGames.qml</file>
-        <file>fvi/Lists/ListRecommended.qml</file>
-        <file>fvi/GameDetails/LaunchGame.qml</file>
-        <file>fvi/GameDetails/Button.qml</file>
-        <file>fvi/GameDetails/MediaItem.qml</file>
-        <file>fvi/GameDetails/GameView.qml</file>
-        <file>fvi/GameDetails/MediaView.qml</file>
-        <file>fvi/Settings/SettingsScreen.qml</file>
+<file>fvi/GameDetails/Button.qml</file>
+<file>fvi/GameDetails/GameView.qml</file>
+<file>fvi/GameDetails/LaunchGame.qml</file>
+<file>fvi/GameDetails/MediaItem.qml</file>
+<file>fvi/GameDetails/MediaView.qml</file>
+<file>fvi/Global/BoxArtGridItem.qml</file>
+<file>fvi/Global/ButtonHelpBar.qml</file>
+<file>fvi/Global/DynamicGridItem.qml</file>
+<file>fvi/Global/GameInfo.qml</file>
+<file>fvi/Global/HeaderBar.qml</file>
+<file>fvi/Global/HorizontalCollection.qml</file>
+<file>fvi/Global/ItemBorder.qml</file>
+<file>fvi/Global/ItemHighlight.qml</file>
+<file>fvi/GridView/GridSpacer.qml</file>
+<file>fvi/GridView/GridViewMenu.qml</file>
+<file>fvi/Lists/ListAllGames.qml</file>
+<file>fvi/Lists/ListCollectionGames.qml</file>
+<file>fvi/Lists/ListFavorites.qml</file>
+<file>fvi/Lists/ListFavoritesWhitelists.qml</file>
+<file>fvi/Lists/ListGenre.qml</file>
+<file>fvi/Lists/ListLastPlayed.qml</file>
+<file>fvi/Lists/ListMostPlayed.qml</file>
+<file>fvi/Lists/ListPublisher.qml</file>
+<file>fvi/Lists/ListRecommended.qml</file>
+<file>fvi/Lists/ListTopGames.qml</file>
+<file>fvi/Lists/ListWhitelists.qml</file>
+<file>fvi/Search/Search.qml</file>
+<file>fvi/Settings/SettingsScreen.qml</file>
+<file>fvi/Settings/VanityScreen.qml</file>
+<file>fvi/Settings/SignatureScreen.qml</file>
+<file>fvi/Settings/UnlockScreen.qml</file>
+<file>fvi/Settings/LaunchOptions.qml</file>
+<file>fvi/ShowcaseView/ShowcaseViewMenu.qml</file>
+<file>fvi/VerticalList/SoftwareListMenu.qml</file>
+<file>fvi/assets/fonts/OpenSans-Bold.ttf</file>
+<file>fvi/assets/fonts/OpenSans-Semibold.ttf</file>
+<file>fvi/assets/fonts/SourceSansPro-Bold.ttf</file>
+<file>fvi/assets/shaders/crt.frag</file>
+<file>fvi/theme.cfg</file>
+<file>fvi/theme.qml</file>
+<file>fvi/utils.js</file>		
     </qresource>
 </RCC>

@@ -31,12 +31,26 @@ id: root
     Behavior on scale { NumberAnimation { duration: 100 } }
     z: selected ? 10 : 1
 
+function basefileext(str)
+{
+    return (str.slice(0, -4))
+}
+
+function bubblename(str)
+{	 
+	return (str.slice(str.lastIndexOf("/")+1).split('_').join(' ').slice(0, -4))
+}
+
     Image {
     id: border
-
         anchors.fill: parent
-        source: "../assets/images/gradient.png"
+        source: if (game.tier === "0") return "http://forbidden.gg/assets/media/theme/gradient.png"
+      else if (game.tier === "1") return "http://forbidden.gg/assets/media/theme/gradient1.png"
+      else if (game.tier === "2") return "http://forbidden.gg/assets/media/theme/gradient2.png"
+      else if (game.tier === "3") return "http://forbidden.gg/assets/media/theme/gradient3.png"	  
+      else return "http://forbidden.gg/assets/media/theme/gradient.png"
         visible: selected
+        asynchronous: true
 
         Rectangle {
         id: titlecontainer
@@ -53,7 +67,10 @@ id: root
             Text {
             id: bubbletitle
 
-                text: isVideo ? "Video" : "Screenshot"
+                text: if (game.tier === "0") isVideo ? "Video" : "Screenshot"
+      else if (game.tier >= "1" && game.tier <= "3") bubblename(mediaItem.toString())
+
+      else return isVideo ? "Video" : "Screenshot"  
                 color: theme.text
                 font {
                     family: subtitleFont.name
@@ -72,52 +89,9 @@ id: root
 
         anchors.fill: parent
         anchors.margins: vpx(4)
-        source: isVideo ? "" : mediaItem
+        source: basefileext(mediaItem.toString()) + ".jpg"
         fillMode: Image.PreserveAspectCrop
-
-        Rectangle {
-        id: videopreview
-
-            anchors.fill: parent
-            color: theme.secondary
-            visible: isVideo
-        }
-
-        Image {
-        id: iconFill
-
-            anchors.fill: parent
-            source: "../assets/images/gradient.png"
-            fillMode: Image.PreserveAspectCrop
-            visible: false
-        }
-
-        Image {
-        id: mask
-
-            source: "../assets/images/icon_mediaplayer.svg"
-            anchors.centerIn: parent
-            width: vpx(150); height: width
-            sourceSize: Qt.size(parent.width, parent.height)
-            smooth: true
-            fillMode: Image.PreserveAspectFit
-            visible: false
-        }
-
-        OpacityMask {
-            anchors.fill: mask
-            anchors.margins: vpx(30)
-            source: iconFill
-            maskSource: mask
-            visible: isVideo
-        }
-
-        Rectangle {
-            anchors.fill: parent
-            color: "black"
-            opacity: selected ? 0 : 0.7
-            z: selected ? 0 : 10
-        }
+        asynchronous: true
         
     }
     

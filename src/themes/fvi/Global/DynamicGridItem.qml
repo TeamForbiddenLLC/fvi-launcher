@@ -94,7 +94,7 @@ id: root
             anchors.margins: vpx(2)
             source: modelData ? modelData.assets.screenshots[0] || modelData.assets.background || "" : ""
             fillMode: Image.PreserveAspectCrop
-            sourceSize { width: 256; height: 256 }
+            sourceSize: Qt.size(screenshot.width, screenshot.height)
             smooth: false
             asynchronous: true
             Behavior on opacity { NumberAnimation { duration: 200 } }
@@ -108,7 +108,7 @@ id: root
             anchors.margins: root.width/10
             property var logoImage: (gameData && gameData.collections.get(0).shortName === "retropie") ? gameData.assets.boxFront : (gameData.collections.get(0).shortName === "steam") ? logo(gameData) : gameData.assets.logo
             source: modelData ? logoImage || "" : ""
-            sourceSize { width: 200; height: 150 }
+            sourceSize: Qt.size(favelogo.width, favelogo.height)
             fillMode: Image.PreserveAspectFit
             asynchronous: true
             smooth: true
@@ -211,12 +211,32 @@ id: root
         color: theme.accent
         visible: gameData.favorite
         Image {
-            source: "../assets/images/favicon.svg"
+            source: "http://forbidden.gg/assets/media/theme/favicon.png"
             asynchronous: true
             anchors.fill: parent
             anchors.margins: parent.width / 6
         }
     }
+    
+    //    Rectangle {
+    // id: whitelisticon
+    //
+    //    anchors { 
+    //        right: parent.right; rightMargin: vpx(30); 
+    //        top: parent.top; topMargin: vpx(10) 
+    //    }
+    //    width: parent.width / 12
+    //    height: width
+    //    radius: width/2
+    //    color: theme.accent
+    //    visible: gameData.whitelist
+    //    Image {
+    //        source: "http://forbidden.gg/assets/media/theme/whitelisticon.png"
+    //       asynchronous: true
+    //        anchors.fill: parent
+    //        anchors.margins: parent.width / 6
+    //    }
+    // }
 
     Loader {
     id: spinnerloader
@@ -230,10 +250,11 @@ id: root
     id: loaderspinner
     
         Image {        
-            source: "../assets/images/loading.png"
+            source: "http://forbidden.gg/assets/media/theme/loading.png"
             width: vpx(50)
             height: vpx(50)
-            sourceSize { width: vpx(50); height: vpx(50) }
+            asynchronous: true
+            sourceSize: Qt.size(width, height)
             RotationAnimator on rotation {
                 loops: Animator.Infinite;
                 from: 0;

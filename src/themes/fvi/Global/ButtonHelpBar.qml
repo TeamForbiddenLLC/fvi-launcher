@@ -25,12 +25,15 @@ id: root
         Row {
             spacing: 10
             Image {
-                source: "../assets/images/keyboard/" + processButtonArt(button).toLowerCase() + ".png"
+                source: "http://forbidden.gg/assets/media/theme/keyboard/" + processButtonArt(button).toLowerCase() + ".png"
                 width: vpx(36)
                 height: vpx(36)
+                asynchronous: true
             }
             Text { 
                 text: name
+				style: Text.Raised;
+				styleColor: "black"
                 font.family: subtitleFont.name
                 font.pixelSize: vpx(16)
                 color: theme.text

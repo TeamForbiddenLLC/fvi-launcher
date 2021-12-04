@@ -37,6 +37,7 @@ namespace appsettings {
 struct General {
     const QString DEFAULT_LOCALE;
     const QString DEFAULT_THEME;
+    const QString DEBUG_THEME;    	
 
     bool portable;
     bool fullscreen;

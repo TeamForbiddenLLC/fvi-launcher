@@ -73,6 +73,8 @@ void ApiObject::onStaticDataLoaded()
                 this, &ApiObject::onGameFileSelectorRequested);
         connect(game, &model::Game::favoriteChanged,
                 this, &ApiObject::onGameFavoriteChanged);
+        connect(game, &model::Game::whitelistChanged,
+                this, &ApiObject::onGameWhitelistChanged);
 
         for (model::GameFile* const gamefile : game->filesConst()) {
             connect(gamefile, &model::GameFile::launchRequested,
@@ -138,6 +140,11 @@ void ApiObject::onGameFinished()
 void ApiObject::onGameFavoriteChanged()
 {
     m_providerman.onGameFavoriteChanged(m_allGames->asList());
+}
+
+void ApiObject::onGameWhitelistChanged()
+{
+    m_providerman.onGameWhitelistChanged(m_allGames->asList());
 }
 
 void ApiObject::onThemeChanged()

@@ -55,30 +55,33 @@ id: infocontainer
             right: parent.right
         }
 
-        // Rating box
+        // Developer box
         Text {
-        id: ratingtitle
+        id: developertitle
 
             width: contentWidth
             height: parent.height
             anchors { left: parent.left; }
             verticalAlignment: Text.AlignVCenter
-            text: "Rating: "
+            text: game.developertitle
             font.pixelSize: vpx(16)
             font.family: subtitleFont.name
             font.bold: true
-            color: theme.accent
+		color: if (game.tier === "0") return theme.accent
+      else if (game.tier === "1") return theme.accent1
+      else if (game.tier === "2") return theme.accent2
+      else if (game.tier === "3") return theme.accent3
+      else return theme.accent
         }
 
         Text {
-        id: ratingtext
+        id: developertext
             
-            property real processedRating: gameData ? Math.round(gameData.rating * 100) / 100 : ""
             width: contentWidth
             height: parent.height
-            anchors { left: ratingtitle.right; leftMargin: vpx(5) }
+            anchors { left: developertitle.right; leftMargin: vpx(5) }
             verticalAlignment: Text.AlignVCenter
-            text: steam ? processedRating*5 : processedRating
+            text: game.item === "1" ? game.who : game.developer
             font.pixelSize: vpx(16)
             font.family: subtitleFont.name
             color: theme.text
@@ -88,36 +91,40 @@ id: infocontainer
         id: divider1
             width: vpx(2)
             anchors {
-                left: ratingtext.right; leftMargin: (25)
+                left: developertext.right; leftMargin: (25)
                 top: parent.top; topMargin: vpx(10)
                 bottom: parent.bottom; bottomMargin: vpx(10)
             }
             opacity: 0.2
         }
 
-        // Players box
+        // Version box
         Text {
-        id: playerstitle
+        id: versiontitle
 
             width: contentWidth
             height: parent.height
             anchors { left: divider1.right; leftMargin: vpx(25) }
             verticalAlignment: Text.AlignVCenter
-            text: "Players: "
+            text: game.versiontitle
             font.pixelSize: vpx(16)
             font.family: subtitleFont.name
             font.bold: true
-            color: theme.accent
+		color: if (game.tier === "0") return theme.accent
+      else if (game.tier === "1") return theme.accent1
+      else if (game.tier === "2") return theme.accent2
+      else if (game.tier === "3") return theme.accent3
+      else return theme.accent
         }
 
         Text {
-        id: playerstext
+        id: versiontext
 
             width: contentWidth
             height: parent.height
-            anchors { left: playerstitle.right; leftMargin: vpx(5) }
+            anchors { left: versiontitle.right; leftMargin: vpx(5) }
             verticalAlignment: Text.AlignVCenter
-            text: gameData ? gameData.players : ""
+            text: game.item === "1" ? game.artist : game.version
             font.pixelSize: vpx(16)
             font.family: subtitleFont.name
             color: theme.text
@@ -126,8 +133,9 @@ id: infocontainer
         Rectangle {
         id: divider2
             width: vpx(2)
+			visible: game.item === "0"
             anchors {
-                left: playerstext.right; leftMargin: (25)
+                left: versiontext.right; leftMargin: (25)
                 top: parent.top; topMargin: vpx(10)
                 bottom: parent.bottom; bottomMargin: vpx(10)
             }
@@ -140,6 +148,7 @@ id: infocontainer
 
             width: contentWidth
             height: parent.height
+			visible: game.item === "0"
             anchors { left: divider2.right; leftMargin: vpx(25) }
             verticalAlignment: Text.AlignVCenter
             text: "Genre: "
@@ -159,6 +168,7 @@ id: infocontainer
                 bottom: parent.bottom
             }
             verticalAlignment: Text.AlignVCenter
+			visible: game.item === "0"
             text: gameData ? gameData.genre : ""
             font.pixelSize: vpx(16)
             font.family: subtitleFont.name
@@ -181,7 +191,7 @@ id: infocontainer
 
         Text {
             width: parent.width
-            text: gameData && (gameData.summary || gameData.description) ? gameData.description || gameData.summary : "No description available"
+            text: gameData && (gameData.summary || gameData.description) ? gameData.description + gameData.thankyou || gameData.summary : "No description available"
             font.pixelSize: vpx(16)
             font.family: bodyFont.name
             color: theme.text

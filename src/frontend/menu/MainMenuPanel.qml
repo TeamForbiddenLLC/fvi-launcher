@@ -29,7 +29,6 @@ FocusScope {
     enabled: focus
 
     signal close
-    signal showSettingsScreen
     signal showHelpScreen
 
     signal requestShutdown
@@ -64,85 +63,14 @@ FocusScope {
         anchors.bottomMargin: vpx(30)
 
         PrimaryMenuItem {
-            id: mbSettings
-            text: qsTr("Settings") + api.tr
-            onActivated: {
-                focus = true;
-                root.showSettingsScreen();
-            }
-            selected: focus
-
-            enabled: api.internal.meta.allowSettings
-            visible: enabled
-
-            KeyNavigation.down: mbHelp
-        }
-        PrimaryMenuItem {
             id: mbHelp
-            text: qsTr("Help") + api.tr
+            text: qsTr("About") + api.tr
             onActivated: {
                 focus = true;
                 root.showHelpScreen();
             }
             selected: focus
 
-            KeyNavigation.down: scopeQuit
-        }
-        RollableMenuItem {
-            id: scopeQuit
-            name: qsTr("Quit") + api.tr
-
-            enabled: callable
-            visible: callable
-            readonly property bool callable: mbQuitShutdown.callable
-                || mbQuitReboot.callable
-                || mbQuitExit.callable
-
-            Component.onCompleted: {
-                const first_callable = [mbQuitShutdown, mbQuitReboot, mbQuitExit].find(e => e.callable);
-                if (first_callable) {
-                    first_callable.focus = true;
-                    scopeQuit.focus = true;
-                } else {
-                    mbHelp.focus = true;
-                }
-            }
-
-            entries: [
-                SecondaryMenuItem {
-                    id: mbQuitShutdown
-                    text: qsTr("Shutdown") + api.tr
-                    onActivated: requestShutdown()
-
-                    readonly property bool callable: api.internal.meta.allowShutdown
-                    enabled: callable
-                    visible: callable
-
-                    KeyNavigation.down: mbQuitReboot
-                },
-                SecondaryMenuItem {
-                    id: mbQuitReboot
-                    text: qsTr("Reboot") + api.tr
-                    onActivated: requestReboot()
-
-                    readonly property bool callable: api.internal.meta.allowReboot
-                    enabled: callable
-                    visible: callable
-
-                    KeyNavigation.down: mbQuitExit
-                },
-                SecondaryMenuItem {
-                    id: mbQuitExit
-                    text: qsTr("Exit FVI") + api.tr
-                    onActivated: requestQuit()
-
-                    readonly property bool callable: api.internal.meta.allowAppClose
-                    enabled: callable
-                    visible: callable
-
-                    KeyNavigation.down: mbQuitShutdown
-                }
-            ]
         }
     }
 

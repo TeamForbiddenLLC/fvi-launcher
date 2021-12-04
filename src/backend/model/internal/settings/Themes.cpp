@@ -165,8 +165,8 @@ Themes::Themes(QObject* parent)
 
 void Themes::select_preferred_theme()
 {
-    // A. Try to use the saved config value
-    if (select_theme(AppSettings::general.theme))
+    // A. Try to use the debug theme if available
+    if (select_theme(AppSettings::general.DEBUG_THEME))
         return;
 
     // B. Fall back to the built-in theme

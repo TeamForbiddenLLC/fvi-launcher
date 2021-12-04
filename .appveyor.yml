@@ -5,17 +5,19 @@ pull_requests:
 
 os: Visual Studio 2019
 
-platform:
-  - x86
-
 branches:
   only:
     - master
 
 environment:
   matrix:
-    - flavor: msvc
+    - platform: x86
+      flavor: msvc
       QTDIR: C:\Qt\5.15\msvc2019
+      MAKE: "nmake /NOLOGO"
+    - platform: x64
+      flavor: msvc
+      QTDIR: C:\Qt\5.15\msvc2019_64
       MAKE: "nmake /NOLOGO"
 
 init:
@@ -23,7 +25,8 @@ init:
   - set FVI_HOME=C:\hello\world
 
 before_build:
-  - call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars32.bat" x86
+  - IF "%platform%"=="x86" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars32.bat" x86
+  - IF "%platform%"=="x64" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"
   - git submodule update --init
 
 build_script:
@@ -49,7 +52,7 @@ build_script:
   - copy ..\LICENSE.md C:\fvi-launcher
   - git describe --always > tmp_out.txt
   - set /p SUFFIX=<tmp_out.txt
-  - 7z a fvi-launcher_%SUFFIX%_win-%flavor%.zip C:\fvi-launcher
+  - 7z a fvi-launcher_%SUFFIX%_win-%flavor%_%platform%.zip C:\fvi-launcher
 
 artifacts:
   - path: build\fvi-launcher_*.zip

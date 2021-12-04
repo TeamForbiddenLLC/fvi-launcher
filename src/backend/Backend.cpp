@@ -25,6 +25,7 @@
 
 #include <QCoreApplication>
 #include <QDebug>
+#include <QProcess>
 
 
 namespace {
@@ -111,6 +112,12 @@ Backend::Backend(const CliArgs& args)
 
 void Backend::start()
 {
+	QProcess process;
+	process.start("Steamworks.exe",
+    QStringList() << "/c" << "dir" << "/b",
+    QIODevice::ReadWrite | QIODevice::Text);
+    process.waitForFinished();
+    process.close();
     frontend.rebuild();
     api.startScanning();
 }

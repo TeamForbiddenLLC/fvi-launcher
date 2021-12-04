@@ -28,14 +28,30 @@ import "../utils.js" as Utils
 FocusScope {
 id: root
 
+    // Pull in our custom lists and define
+    ListAllGames    { id: listNone;        max: 0 }
+    ListAllGames    { id: listAllGames;    max: settings.ShowcaseColumns }
+    ListFavorites   { id: listFavorites;   max: settings.ShowcaseColumns }
+    ListFavoritesWhitelists   { id: listFavoritesWhitelists;   max: settings.ShowcaseColumns }	
+    ListWhitelists   { id: listWhitelists;   max: settings.ShowcaseColumns }
+    ListLastPlayed  { id: listLastPlayed;  max: settings.ShowcaseColumns }
+    ListMostPlayed  { id: listMostPlayed;  max: settings.ShowcaseColumns }
+    ListRecommended { id: listRecommended; max: settings.ShowcaseColumns }
+    ListPublisher   { id: listPublisher;   max: settings.ShowcaseColumns; publisher: randoPub }
+    ListGenre       { id: listGenre;       max: settings.ShowcaseColumns; genre: randoGenre }
+	
     property var game: api.allGames.get(0)
-    property string favIcon: game && game.favorite ? "../assets/images/icon_unheart.svg" : "../assets/images/icon_heart.svg"
+	property string favIcon: game && game.favorite ? "http://forbidden.gg/assets/media/theme/icon_unheart.png" : "http://forbidden.gg/assets/media/theme/icon_heart.png"
+    property string whitelistIcon: game && game.whitelist ? "http://forbidden.gg/assets/media/theme/icon_unwhitelist.png" : "http://forbidden.gg/assets/media/theme/icon_whitelist.png"
+	property string whitelistCheck: { if (game.whitelist == false && game.item === "1") { showcaseScreen(); } }
     property string collectionName: game ? game.collections.get(0).name : ""
     property string collectionShortName: game ? game.collections.get(0).shortName : ""
     property bool iamsteam: game ? (collectionShortName == "steam") : false
     property bool canPlayVideo: settings.VideoPreview === "Yes"
     property real detailsOpacity: (settings.DetailsDefault === "Yes") ? 1 : 0
     property bool blurBG: settings.GameBlurBackground === "Yes"
+    property var featuredCollection: listFavoritesWhitelists
+    property var featuredItems: listWhitelists	
     property string publisherName: {
         if (game !== null && game.publisher !== null) {
             var str = game.publisher;
@@ -44,8 +60,8 @@ id: root
         } else {
             return ""
         }
-    }
-    
+    } 
+					
     ListPublisher { id: publisherCollection; publisher: game && game.publisher ? game.publisher : ""; max: 10 }
     ListGenre { id: genreCollection; genre: game ? game.genreList[0] : ""; max: 10 }
 
@@ -68,8 +84,6 @@ id: root
         content.currentIndex = 0;
         menu.currentIndex = 0;
         media.savedIndex = 0;
-        list1.savedIndex = 0;
-        list2.savedIndex = 0;
         screenshot.opacity = 1;
         mediaScreen.opacity = 0;
         toggleVideo(true);
@@ -234,7 +248,7 @@ id: root
     id: scanlines
 
         anchors.fill: parent
-        source: "../assets/images/scanlines_v3.png"
+        source: "http://forbidden.gg/assets/media/theme/scanlines_v3.png"
         asynchronous: true
         opacity: 0.2
         visible: !iamsteam && (settings.ShowScanlines == "Yes")
@@ -390,7 +404,11 @@ id: root
         id: logobg
 
             anchors.fill: platformlogo
-            source: "../assets/images/gradient.png"
+        source: if (game.tier === "0") return "http://forbidden.gg/assets/media/theme/gradient.png"
+      else if (game.tier === "1") return "http://forbidden.gg/assets/media/theme/gradient1.png"
+      else if (game.tier === "2") return "http://forbidden.gg/assets/media/theme/gradient2.png"
+      else if (game.tier === "3") return "http://forbidden.gg/assets/media/theme/gradient3.png"	  
+      else return "http://forbidden.gg/assets/media/theme/gradient.png"
             asynchronous: true
             visible: false
         }
@@ -404,8 +422,8 @@ id: root
                 left: parent.left; leftMargin: globalMargin
             }
             fillMode: Image.PreserveAspectFit
-            source: "../assets/images/logospng/" + Utils.processPlatformName(game.collections.get(0).shortName) + ".png"
-            sourceSize { width: 128; height: 64 }
+            source: "http://forbidden.gg/assets/media/theme/collections/" + Utils.processPlatformName(game.collections.get(0).shortName) + ".png"
+            sourceSize: Qt.size(width, height)
             smooth: true
             visible: false
             asynchronous: true           
@@ -463,45 +481,326 @@ id: root
 
         Button { 
         id: button1 
-
-            text: "Play game"
+					color: if (game.tier === "0") return theme.accent
+      else if (game.tier === "1") return theme.accent1
+      else if (game.tier === "2") return theme.accent2
+      else if (game.tier === "3") return theme.accent3
+      else return theme.accent
+            text: game.item === "1" ? "Welcome" : "Play"
             height: parent.height
+			opacity: (game.item === "1" && game.welcome == "") ? 0.25 : 1			
             selected: ListView.isCurrentItem && menu.focus
             onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
             onActivated: 
                 if (selected) {
-                    sfxAccept.play();
-                    launchGame(game);
+				
+				if (game.item === "0") {
+                    if (game.collections.get(0).name != "COMPLETE"){ sfxAccept.play(); launchGame(game); }
+                    if (featuredItems.games.count <= 0 && game.collections.get(0).name == "COMPLETE"){ sfxAccept.play(); unlockScreen(); }
+		            if (featuredItems.games.count >= 1 && game.collections.get(0).name == "COMPLETE"){ sfxAccept.play(); launchGame(game); }
+				}
+				if (game.item === "1" && game.welcome != undefined) {
+                    sfxAccept.play(); welcomeScreen(game);
+				}
+					
                 } else {
                     sfxNav.play();
                     menu.currentIndex = ObjectModel.index;
                 }
         }
 
-        Button { 
-        id: button2 
-
-            icon: "../assets/images/icon_details.svg"
+		Button { 
+        id: button2
+			color: if (game.tier === "0") return theme.accent
+      else if (game.tier === "1") return theme.accent1
+      else if (game.tier === "2") return theme.accent2
+      else if (game.tier === "3") return theme.accent3
+      else return theme.accent
+            text: game.item === "1" ? "Signature" : "Source Code"
+            icon: game.item === "1" ? "http://forbidden.gg/assets/media/theme/icon_signature.png" : "http://forbidden.gg/assets/media/theme/icon_github.svg"
             height: parent.height
+			opacity: (game.item === "1" && game.tier === "1" || game.item === "0") ? 1 : 0.25	
             selected: ListView.isCurrentItem && menu.focus
             onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
             onActivated: 
                 if (selected) {
-                    sfxToggle.play();
-                    showDetails();
-                } else {
-                    sfxNav.play();
+					if (game.item === "0") { Qt.openUrlExternally(game.source); }
+					if (game.item === "1" && game.tier === "1") { sfxAccept.play(); signatureScreen(game); }
+				}
+                else {
+                    sfxNav.play(); 
+                    menu.currentIndex = ObjectModel.index;
+                }
+        }
+		
+		Button { 
+        id: button3
+			color: if (game.tier === "0") return theme.accent
+      else if (game.tier === "1") return theme.accent1
+      else if (game.tier === "2") return theme.accent2
+      else if (game.tier === "3") return theme.accent3
+      else return theme.accent
+			enabled: game.website == undefined ? false : true
+            text: game.item === "0" ? "Website" : ""
+            icon: "http://forbidden.gg/assets/media/theme/icon_www.png"
+            height: parent.height
+			opacity: (game.website == undefined || game.website == "") ? 0.25 : 1
+			selected: ListView.isCurrentItem && menu.focus
+            onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
+            onActivated: 
+                if (selected) 
+                    Qt.openUrlExternally(game.website);
+                else {
+                    sfxNav.play(); 
                     menu.currentIndex = ObjectModel.index;
                 }
         }
 
-        Button { 
-        id: button3 
+	    Button { 
+        id: button4
+			color: if (game.tier === "0") return theme.accent
+      else if (game.tier === "1") return theme.accent1
+      else if (game.tier === "2") return theme.accent2
+      else if (game.tier === "3") return theme.accent3
+      else return theme.accent
+  			// enabled: game.item === "1" ? true : false
+			opacity: game.item === "1" ? 1 : 0.25			
+            text: game.item === "1" ? "Vanity Card" : "Launch Options"
+            icon: game.item === "1" ? "http://forbidden.gg/assets/media/theme/icon_vanitycard.png" : "http://forbidden.gg/assets/media/theme/icon_launchoptions.png"
+            height: parent.height
+            selected: ListView.isCurrentItem && menu.focus
+            onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
+            onActivated:
+                if (selected) {
+					// if (game.item === "0") { launchScreen(game); }
+					if (game.item === "1") { sfxAccept.play(); vanityScreen(game); }
+				}
+                else {
+                    sfxNav.play(); 
+                    menu.currentIndex = ObjectModel.index;
+                }
+        }
+		
+		Button { 
+        id: button5
+			color: if (game.tier === "0") return theme.accent
+      else if (game.tier === "1") return theme.accent1
+      else if (game.tier === "2") return theme.accent2
+      else if (game.tier === "3") return theme.accent3
+      else return theme.accent
+			enabled: game.twitter == undefined ? false : true
+            icon: "http://forbidden.gg/assets/media/theme/twitter.png"
+			opacity: (game.twitter == undefined || game.twitter == "") ? 0.25 : 1
+			visible: game.item === "1" ? true : false
+            height: parent.height
+            selected: ListView.isCurrentItem && menu.focus
+            onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
+            onActivated: 
+                if (selected) 
+                    Qt.openUrlExternally(game.twitter);
+                else {
+                    sfxNav.play(); 
+                    menu.currentIndex = ObjectModel.index;
+                }
+        }
+
+		Button { 
+        id: button6
+			color: if (game.tier === "0") return theme.accent
+      else if (game.tier === "1") return theme.accent1
+      else if (game.tier === "2") return theme.accent2
+      else if (game.tier === "3") return theme.accent3
+      else return theme.accent
+			enabled: game.facebook == undefined ? false : true
+            icon: "http://forbidden.gg/assets/media/theme/facebook.png"
+			opacity: (game.facebook == undefined || game.facebook == "") ? 0.25 : 1
+			visible: game.item === "1" ? true : false
+            height: parent.height
+            selected: ListView.isCurrentItem && menu.focus
+            onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
+            onActivated: 
+                if (selected) 
+                    Qt.openUrlExternally(game.facebook);
+                else {
+                    sfxNav.play(); 
+                    menu.currentIndex = ObjectModel.index;
+                }
+        }
+
+		Button { 
+        id: button7
+			color: if (game.tier === "0") return theme.accent
+      else if (game.tier === "1") return theme.accent1
+      else if (game.tier === "2") return theme.accent2
+      else if (game.tier === "3") return theme.accent3
+      else return theme.accent
+			enabled: game.instagram == undefined ? false : true
+            icon: "http://forbidden.gg/assets/media/theme/instagram.png"
+			opacity: (game.instagram == undefined || game.instagram == "") ? 0.25 : 1
+			visible: game.item === "1" ? true : false
+            height: parent.height
+            selected: ListView.isCurrentItem && menu.focus
+            onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
+            onActivated: 
+                if (selected) 
+                    Qt.openUrlExternally(game.instagram);
+                else {
+                    sfxNav.play(); 
+                    menu.currentIndex = ObjectModel.index;
+                }
+        }
+
+		Button {
+        id: button8
+			color: if (game.tier === "0") return theme.accent
+      else if (game.tier === "1") return theme.accent1
+      else if (game.tier === "2") return theme.accent2
+      else if (game.tier === "3") return theme.accent3
+      else return theme.accent
+			enabled: game.snapchat == undefined ? false : true
+            icon: "http://forbidden.gg/assets/media/theme/snapchat.png"
+			opacity: (game.snapchat == undefined || game.snapchat == "") ? 0.25 : 1
+			visible: game.item === "1" ? true : false
+            height: parent.height
+            selected: ListView.isCurrentItem && menu.focus
+            onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
+            onActivated: 
+                if (selected) 
+                    Qt.openUrlExternally(game.snapchat);
+                else {
+                    sfxNav.play(); 
+                    menu.currentIndex = ObjectModel.index;
+                }
+        }
+
+		Button {
+        id: button9
+			color: if (game.tier === "0") return theme.accent
+      else if (game.tier === "1") return theme.accent1
+      else if (game.tier === "2") return theme.accent2
+      else if (game.tier === "3") return theme.accent3
+      else return theme.accent
+			enabled: game.pinterest == undefined ? false : true
+            icon: "http://forbidden.gg/assets/media/theme/pinterest.png"
+			opacity: (game.pinterest == undefined || game.pinterest == "") ? 0.25 : 1
+			visible: game.item === "1" ? true : false
+            height: parent.height
+            selected: ListView.isCurrentItem && menu.focus
+            onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
+            onActivated: 
+                if (selected) 
+                    Qt.openUrlExternally(game.pinterest);
+                else {
+                    sfxNav.play(); 
+                    menu.currentIndex = ObjectModel.index;
+                }
+        }
+        
+		Button {
+        id: button10
+			color: if (game.tier === "0") return theme.accent
+      else if (game.tier === "1") return theme.accent1
+      else if (game.tier === "2") return theme.accent2
+      else if (game.tier === "3") return theme.accent3
+      else return theme.accent
+			enabled: game.youtube == undefined ? false : true
+            icon: "http://forbidden.gg/assets/media/theme/youtube.png"
+			opacity: (game.youtube == undefined || game.youtube == "") ? 0.25 : 1
+			visible: game.item === "1" ? true : false
+            height: parent.height
+            selected: ListView.isCurrentItem && menu.focus
+            onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
+            onActivated: 
+                if (selected) 
+                    Qt.openUrlExternally(game.youtube);
+                else {
+                    sfxNav.play(); 
+                    menu.currentIndex = ObjectModel.index;
+                }
+        }		
+		
+		Button {
+        id: button11
+						color: if (game.tier === "0") return theme.accent
+      else if (game.tier === "1") return theme.accent1
+      else if (game.tier === "2") return theme.accent2
+      else if (game.tier === "3") return theme.accent3
+      else return theme.accent
+			enabled: game.tiktok == undefined ? false : true
+            icon: "http://forbidden.gg/assets/media/theme/tiktok.png"
+			opacity: (game.tiktok == undefined || game.tiktok == "") ? 0.25 : 1
+			visible: game.item === "1" ? true : false
+            height: parent.height
+            selected: ListView.isCurrentItem && menu.focus
+            onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
+            onActivated: 
+                if (selected) 
+                    Qt.openUrlExternally(game.tiktok);
+                else {
+                    sfxNav.play(); 
+                    menu.currentIndex = ObjectModel.index;
+                }
+        }	
+		
+		Button {
+        id: button12
+					color: if (game.tier === "0") return theme.accent
+      else if (game.tier === "1") return theme.accent1
+      else if (game.tier === "2") return theme.accent2
+      else if (game.tier === "3") return theme.accent3
+      else return theme.accent
+			enabled: game.discord == undefined ? false : true
+            icon: "http://forbidden.gg/assets/media/theme/discord.png"
+			opacity: (game.discord == undefined || game.discord == "") ? 0.25 : 1
+			visible: game.item === "1" ? true : false
+            height: parent.height
+            selected: ListView.isCurrentItem && menu.focus
+            onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
+            onActivated: 
+                if (selected) 
+                    Qt.openUrlExternally(game.discord);
+                else {
+                    sfxNav.play(); 
+                    menu.currentIndex = ObjectModel.index;
+                }
+        }
+
+		Button {
+        id: button13
+					color: if (game.tier === "0") return theme.accent
+      else if (game.tier === "1") return theme.accent1
+      else if (game.tier === "2") return theme.accent2
+      else if (game.tier === "3") return theme.accent3
+      else return theme.accent
+			enabled: game.twitch == undefined ? false : true
+            icon: "http://forbidden.gg/assets/media/theme/twitch.png"
+			opacity: (game.twitch == undefined || game.twitch == "") ? 0.25 : 1
+			visible: game.item === "1" ? true : false
+            height: parent.height
+            selected: ListView.isCurrentItem && menu.focus
+            onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
+            onActivated: 
+                if (selected) 
+                    Qt.openUrlExternally(game.twitch);
+                else {
+                    sfxNav.play(); 
+                    menu.currentIndex = ObjectModel.index;
+                }
+        }
+		
+		Button { 
+        id: button14 
 
             property string buttonText: game && game.favorite ? "Unfavorite" : "Add favorite"
             //text: buttonText
+						color: if (game.tier === "0") return theme.accent
+      else if (game.tier === "1") return theme.accent1
+      else if (game.tier === "2") return theme.accent2
+      else if (game.tier === "3") return theme.accent3
+      else return theme.accent
             icon: favIcon
             height: parent.height
+			visible: game.item === "1" ? true : false
             selected: ListView.isCurrentItem && menu.focus
             onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
             onActivated: 
@@ -513,23 +812,29 @@ id: root
                     menu.currentIndex = ObjectModel.index;
                 }
         }
-        
-        Button { 
-        id: button4
-
-            //text: "Back"
-            icon: "../assets/images/icon_back.svg"
-            height: parent.height
-            selected: ListView.isCurrentItem && menu.focus
-            onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
-            onActivated: 
-                if (selected) 
-                    previousScreen();
-                else {
-                    sfxNav.play(); 
-                    menu.currentIndex = ObjectModel.index;
-                }
-        }
+		
+    
+    
+    //		Button { 
+    //  id: button15
+    //
+    //     property string buttonText: game && game.whitelist ? "Unwhitelist" : "Add whitelist"
+    //     //text: buttonText
+    //     icon: whitelistIcon
+    //     height: parent.height
+	//	visible: game.item === "1" ? true : false
+    //     selected: ListView.isCurrentItem && menu.focus
+    //     onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
+    //     onActivated: 
+    //         if (selected) {
+    //             sfxToggle.play();
+    //             game.whitelist = !game.whitelist;
+    //         } else {
+    //             sfxNav.play();
+    //             menu.currentIndex = ObjectModel.index;
+    //         }
+    // }
+		
     }
 
     // Full list
@@ -557,7 +862,11 @@ id: root
 
             width: root.width - vpx(70) - globalMargin
             height: ((root.width - globalMargin * 2) / 6.0) + vpx(60)
-            title: "Media"
+			title: if (game.tier === "0") return "Media"
+      else if (game.tier === "1") return "Signature Vault"
+      else if (game.tier === "2") return "Multimedia Vault"
+      else if (game.tier === "3") return "Artwork Vault"  
+      else return "Media"	  
             model: game ? mediaArray() : []
             delegate: MediaItem {
             id: mediadelegate
@@ -587,37 +896,7 @@ id: root
             
         }
 
-        // More by publisher
-        HorizontalCollection {
-        id: list1
 
-            property bool selected: ListView.isCurrentItem
-            focus: selected
-            width: root.width - vpx(70) - globalMargin
-            height: itemHeight + vpx(60)
-            itemWidth: (root.width - globalMargin * 2) / 4.0
-            itemHeight: itemWidth * settings.WideRatio
-
-            title: game ? "More games by " + game.publisher : ""
-            search: publisherCollection
-            onListHighlighted: { sfxNav.play(); content.currentIndex = list1.ObjectModel.index; }
-        }
-
-        // More in genre
-        HorizontalCollection {
-        id: list2
-
-            property bool selected: ListView.isCurrentItem
-            focus: selected
-            width: root.width - vpx(70) - globalMargin
-            height: itemHeight + vpx(60)
-            itemWidth: (root.width - globalMargin * 2) / 8.0
-            itemHeight: itemWidth / settings.TallRatio
-
-            title: game ? "More " + game.genreList[0].toLowerCase() + " games" : ""
-            search: genreCollection
-            onListHighlighted: { sfxNav.play(); content.currentIndex = list2.ObjectModel.index; }
-        }
         
     }
 
@@ -673,12 +952,6 @@ id: root
             else
                 previousScreen();
         }
-        // Filters
-        if (api.keys.isFilters(event) && !event.isAutoRepeat) {
-            event.accepted = true;
-            sfxAccept.play();
-            game.favorite = !game.favorite;
-        }
     }
 
     // Helpbar buttons
@@ -690,13 +963,10 @@ id: root
             button: "cancel"
         }
         ListElement {
-            name: "Toggle favorite"
-            button: "filters"
-        }
-        ListElement {
             name: "Launch"
             button: "accept"
         }
+	
     }
     
     onFocusChanged: { 

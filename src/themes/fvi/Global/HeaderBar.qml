@@ -41,7 +41,7 @@ id: root
         id: logobg
 
             anchors.fill: platformlogo
-            source: "../assets/images/gradient.png"
+            source: "http://forbidden.gg/assets/media/theme/gradient.png"
             asynchronous: true
             visible: false
         }
@@ -55,7 +55,6 @@ id: root
                 left: parent.left; leftMargin: globalMargin
             }
             fillMode: Image.PreserveAspectFit
-            source: "../assets/images/logospng/" + Utils.processPlatformName(currentCollection.shortName) + ".png"
             sourceSize { width: 128; height: 64 }
             smooth: true
             visible: false
@@ -139,8 +138,9 @@ id: root
                         left: parent.left; leftMargin: vpx(11)
                         top: parent.top; topMargin: vpx(10)
                     }
-                    source: "../assets/images/searchicon.svg"
+                    source: "http://forbidden.gg/assets/media/theme/searchicon.svg"
                     opacity: searchbar.selected && !searchActive ? 1 : searchActive ? 0.8 : 0.5
+					asynchronous: true
                 }
 
                 TextInput {
@@ -192,118 +192,7 @@ id: root
                     }
                 }
             }
-
-            // Ascending/descending
-            Item {
-            id: directionbutton
-
-                property bool selected: ListView.isCurrentItem && root.focus
-                width: directiontitle.contentWidth + vpx(30)
-                height: searchbar.height
-
-                Rectangle
-                { 
-                    anchors.fill: parent
-                    radius: height/2
-                    color: theme.accent
-                    visible: directionbutton.selected
-                }
-
-                Text {
-                id: directiontitle
-                    
-                    text: (orderBy === Qt.AscendingOrder) ? "Ascending" : "Descending"
-                                    
-                    color: theme.text
-                    font.family: subtitleFont.name
-                    font.pixelSize: vpx(18)
-                    anchors.centerIn: parent
-                    elide: Text.ElideRight
-                }
-
-                Keys.onPressed: {
-                    // Accept
-                    if (api.keys.isAccept(event) && !event.isAutoRepeat) {
-                        event.accepted = true;
-                        toggleOrderBy();
-                    }
-                }
-            }
-
-            // Order by title
-            Item {
-            id: titlebutton
-
-                property bool selected: ListView.isCurrentItem && root.focus
-                width: ordertitle.contentWidth + vpx(30)
-                height: searchbar.height
-
-                Rectangle
-                { 
-                    anchors.fill: parent
-                    radius: height/2
-                    color: theme.accent
-                    visible: titlebutton.selected
-                }
-
-                Text {
-                id: ordertitle
-                    
-                    text: "By " + sortByFilter[sortByIndex]
-                                    
-                    color: theme.text
-                    font.family: subtitleFont.name
-                    font.pixelSize: vpx(18)
-                    anchors.centerIn: parent
-                    elide: Text.ElideRight
-                }
-
-                Keys.onPressed: {
-                    // Accept
-                    if (api.keys.isAccept(event) && !event.isAutoRepeat) {
-                        event.accepted = true;
-                        cycleSort();
-                    }
-                }
-            }
-            
-            // Filters menu
-            Item {
-            id: filterbutton
-
-                property bool selected: ListView.isCurrentItem && root.focus
-                width: filtertitle.contentWidth + vpx(30)
-                height: searchbar.height
-
-                Rectangle
-                { 
-                    anchors.fill: parent
-                    radius: height/2
-                    color: theme.accent
-                    visible: filterbutton.selected
-                }
-                
-                // Filter title
-                Text {
-                id: filtertitle
-                    
-                    text: (showFavs) ? "Favorites" : "All games"
-                                    
-                    color: theme.text
-                    font.family: subtitleFont.name
-                    font.pixelSize: vpx(18)
-                    anchors.centerIn: parent
-                    elide: Text.ElideRight
-                }
-
-                Keys.onPressed: {
-                    // Accept
-                    if (api.keys.isAccept(event) && !event.isAutoRepeat) {
-                        event.accepted = true;
-                        toggleFavs();
-                    }
-                }
-            }
+           
         }
 
         // Buttons

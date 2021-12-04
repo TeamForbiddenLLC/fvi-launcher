@@ -26,3 +26,9 @@ src/pegasus-fe.exe.lnk
 src/config/lastrun.log
 *.db
 src/pegasus-fe
+pegasus-fe.exe
+portable.txt
+config/metafiles/metadata.txt
+config/lastrun.log
+config/game_dirs.txt
+config/theme_settings/fvi.json

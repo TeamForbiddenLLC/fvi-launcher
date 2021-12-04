@@ -75,6 +75,7 @@ private slots:
     // internal communication
     void onStaticDataLoaded();
     void onGameFavoriteChanged();
+    void onGameWhitelistChanged();
     void onGameFileSelectorRequested();
     void onGameFileLaunchRequested();
     void onThemeChanged();

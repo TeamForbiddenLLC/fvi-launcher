@@ -203,6 +203,7 @@ id: root
         if (api.keys.isFilters(event) && !event.isAutoRepeat) {
             event.accepted = true;
             toggleFavs();
+            togglesWhitelists();
         }
         // Details
         if (api.keys.isDetails(event) && !event.isAutoRepeat) {

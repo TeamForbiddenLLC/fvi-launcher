@@ -94,13 +94,34 @@ id: root
                 color: theme.accent
                 visible: gameData.favorite
                 Image {
-                    source: "../assets/images/favicon.svg"
+                    source: "http://forbidden.gg/assets/media/theme/favicon.png"
                     asynchronous: true
                     anchors.fill: parent
                     anchors.margins: vpx(4)            
                 }
             }
-        }
+			
+            //            Rectangle {
+            // id: whitelisticon
+            // 
+            //    anchors { 
+            //        right: parent.right; rightMargin: vpx(27); 
+            //        top: parent.top; topMargin: vpx(7) 
+            //    }
+            //    width: vpx(20)
+            //    height: width
+            //    radius: width/2
+            //    color: theme.accent
+            //    visible: gameData.whitelist
+            //    Image {
+            //        source: "http://forbidden.gg/assets/media/theme/whitelisticon.png"
+            //        asynchronous: true
+            //        anchors.fill: parent
+            //        anchors.margins: vpx(4)            
+            //    }
+            // }
+        
+		}
 
         Rectangle {
         id: regborder
@@ -197,9 +218,10 @@ id: root
     id: loaderspinner
     
         Image {
-            source: "../assets/images/loading.png"
+            source: "http://forbidden.gg/assets/media/theme/loading.png"
             width: vpx(50)
             height: vpx(50)
+            asynchronous: true
             sourceSize { width: vpx(50); height: vpx(50) }
             RotationAnimator on rotation {
                 loops: Animator.Infinite;

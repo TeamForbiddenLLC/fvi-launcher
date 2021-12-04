@@ -1,12 +1,4 @@
 <RCC>
     <qresource prefix="/lang">
-        <file>fvi_de.qm</file>
-        <file>fvi_es.qm</file>
-        <file>fvi_fr.qm</file>
-        <file>fvi_hu.qm</file>
-        <file>fvi_ko.qm</file>
-        <file>fvi_pt-BR.qm</file>
-        <file>fvi_ru.qm</file>
-        <file>fvi_zh.qm</file>
     </qresource>
 </RCC>

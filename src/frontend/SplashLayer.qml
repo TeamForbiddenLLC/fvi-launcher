@@ -39,7 +39,7 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.bottom: parent.verticalCenter
-        anchors.bottomMargin: vpx(-10)
+        anchors.bottomMargin: vpx(-100)
     }
 
     Rectangle {

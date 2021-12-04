@@ -8,29 +8,19 @@ CC0 Public Domain:
 /assets/buttons/xb_b.png
 /assets/buttons/xb_x.png
 /assets/buttons/xb_y.png
-/src/frontend/assets/pbar.png
-/src/frontend/assets/qr-docs.png
-/src/themes/fvi/assets/images/scanlines-vert.png
-/src/themes/fvi/assets/images/scanlines_v3.png
-/src/themes/fvi/assets/images/star.svg
 
 Properitary:
 
 /assets/icon.png
-/src/app/platform/linux/gg.forbidden.FVI.png
-/src/app/platform/windows/app_icon.ico
-/src/app/platform/macos/fvi-launcher.icns
+/src/app/platform/linux/*
+/src/app/platform/windows/*
+/src/app/platform/macos/*
 /src/frontend/assets/logo.svg
-/src/themes/fvi/assets/images/defaultbg.jpg
-/src/themes/fvi/assets/images/keyboard/return.png image sourced from Archil Imnadze https://archil.imnadze.ge/ https://www.iconfinder.com/aimnadze
-/src/themes/fvi/assets/images/keyboard/enter.png image sourced from Archil Imnadze https://archil.imnadze.ge/ https://www.iconfinder.com/aimnadze
-/src/themes/fvi/assets/images/chat.png image sourced from Geomicons https://jxnblk.github.io/
-/src/themes/fvi/assets/images/events.png image sourced from Geomicons https://jxnblk.github.io/
-/src/themes/fvi/assets/images/facebook.png image sourced from Geomicons https://jxnblk.github.io/
-/src/themes/fvi/assets/images/website.png image sourced from Geomicons https://jxnblk.github.io/
-/src/themes/fvi/assets/images/wiki.png image sourced from Geomicons https://jxnblk.github.io/
-/src/themes/fvi/assets/images/settings.png image sourced from Geomicons https://jxnblk.github.io/
-/src/themes/fvi/assets/images/twitter.png image sourced from Geomicons https://jxnblk.github.io/
+/src/frontend/assets/qt-logo.png
+/src/frontend/assets/qr-docs.png
+/src/frontend/assets/pegasus-logo.png
+/src/frontend/assets/pbar.png
+/src/frontend/assets/gameos-logo.png
 
 GPLv3:
 
@@ -49,15 +39,8 @@ GPLv3:
 /src/frontend/assets/gamepad/stick.svg
 /src/frontend/assets/gamepad/x.svg
 /src/frontend/assets/gamepad/y.svg
-/src/frontend/assets/qt-logo.png
-/src/themes/fvi/assets/images/clock.svg
-/src/themes/fvi/assets/images/favebg.svg
-/src/themes/fvi/assets/images/gamepad.svg
-/src/themes/fvi/assets/images/loading.png
-/src/themes/fvi/assets/images/loading.svg
-/src/themes/fvi/assets/images/loadingspinner.png
-/src/themes/fvi/assets/images/loadingspinner.svg
-/src/themes/fvi/assets/images/menuicon.svg
-/src/themes/fvi/assets/images/metabg.svg
-/src/themes/fvi/assets/images/wreath-gold.svg
-/src/themes/fvi/assets/images/wreath.svg
+
+Warfork, Forbidden, Icy, and all characters depicted are exclusive trademarks and copyrights. They may not be used without authorization from Team Forbidden, LLC.
+gameOS is an exclusive trademark and copyright of Seth Powell.
+Pegasus Frontend is an exclusive trademark and copyright of Mátyás Mustoha.
+Qt is an exclusive trademark and copyright of The Qt Company.

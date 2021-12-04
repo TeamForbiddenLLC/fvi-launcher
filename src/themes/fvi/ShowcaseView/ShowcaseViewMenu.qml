@@ -32,13 +32,16 @@ id: root
     ListAllGames    { id: listNone;        max: 0 }
     ListAllGames    { id: listAllGames;    max: settings.ShowcaseColumns }
     ListFavorites   { id: listFavorites;   max: settings.ShowcaseColumns }
+    ListFavoritesWhitelists   { id: listFavoritesWhitelists;   max: settings.ShowcaseColumns }	
+    ListWhitelists   { id: listWhitelists;   max: settings.ShowcaseColumns }
     ListLastPlayed  { id: listLastPlayed;  max: settings.ShowcaseColumns }
     ListMostPlayed  { id: listMostPlayed;  max: settings.ShowcaseColumns }
     ListRecommended { id: listRecommended; max: settings.ShowcaseColumns }
     ListPublisher   { id: listPublisher;   max: settings.ShowcaseColumns; publisher: randoPub }
     ListGenre       { id: listGenre;       max: settings.ShowcaseColumns; genre: randoGenre }
 
-    property var featuredCollection: listFavorites
+    property var featuredCollection: listFavoritesWhitelists
+    property var featuredItems: listWhitelists	
     property var collection1: getCollection(settings.ShowcaseCollection1, settings.ShowcaseCollection1_Thumbnail)
     property var collection2: getCollection(settings.ShowcaseCollection2, settings.ShowcaseCollection2_Thumbnail)
     property var collection3: getCollection(settings.ShowcaseCollection3, settings.ShowcaseCollection3_Thumbnail)
@@ -75,6 +78,9 @@ id: root
             case "Favorites":
                 collection.search = listFavorites;
                 break;
+            case "Whitelists":
+                collection.search = listWhitelists;
+                break;
             case "Recently Played":
                 collection.search = listLastPlayed;
                 break;
@@ -110,6 +116,16 @@ id: root
 
     property bool ftue: featuredCollection.games.count == 0
 
+	property string skinLogoOption: if (settings.DisableUnlockedLogos == "Yes")
+        return "1";
+            else
+        return settings.Skin;
+	
+	property string videoBannerFile: if (settings.PlayBannerVideo == "Yes")
+        return "fvi";
+            else
+        return "placeholder";
+		
     function storeIndices(secondary) {
         storedHomePrimaryIndex = mainList.currentIndex;
         if (secondary)
@@ -144,7 +160,7 @@ id: root
 
         /*Image {
             anchors.fill: parent
-            source: "../assets/images/ftueBG01.jpeg"
+            source: "http://forbidden.gg/assets/media/theme/ftueBG01.jpeg"
             sourceSize { width: root.width; height: root.height}
             fillMode: Image.PreserveAspectCrop
             smooth: true
@@ -157,11 +173,22 @@ id: root
             opacity: 0.5
         }
 
+       Image {
+        id: videocomponentimage
+
+            anchors.fill: parent
+            source: "http://forbidden.gg/assets/media/theme/video/fvi.png"
+            fillMode: Image.PreserveAspectCrop
+            smooth: true
+            asynchronous: true
+            anchors.centerIn: parent
+        }
         Video {
+                
         id: videocomponent
 
             anchors.fill: parent
-            source: "../assets/video/fvi.mp4"
+			source: "http://forbidden.gg/assets/media/theme/video/" + videoBannerFile + ".mp4"
             fillMode: VideoOutput.PreserveAspectCrop
             muted: true
             loops: MediaPlayer.Infinite
@@ -174,7 +201,8 @@ id: root
                 duration: 1000;
                 running: true;
             }
-
+            
+        
         }
 
         Image {
@@ -182,8 +210,8 @@ id: root
 
             width: vpx(500)
             anchors { left: parent.left; leftMargin: globalMargin }
-            source: "../assets/images/warfork-logo.png"
-            sourceSize { width: 350; height: 250}
+            source: "http://forbidden.gg/assets/media/theme/" + skinLogoOption + ".png";
+            sourceSize: Qt.size(parent.width, parent.height)
             fillMode: Image.PreserveAspectFit
             smooth: true
             asynchronous: true
@@ -211,19 +239,6 @@ id: root
         width: parent.width
         height: vpx(70)
         z: 10
-        Image {
-        id: logo
-
-            width: vpx(150)
-            anchors { left: parent.left; leftMargin: globalMargin }
-            source: "../assets/images/warfork-logo.png"
-            sourceSize { width: 150; height: 100}
-            fillMode: Image.PreserveAspectFit
-            smooth: true
-            asynchronous: true
-            anchors.verticalCenter: parent.verticalCenter
-            visible: !ftueContainer.visible
-        }
 
 
 		// settings button
@@ -277,10 +292,69 @@ id: root
             anchors.centerIn: settingsbutton
             smooth: true
             asynchronous: true
-            source: "../assets/images/settings.png"
+            source: "http://forbidden.gg/assets/media/theme/settings.png"
             opacity: root.focus ? 0.8 : 0.5
         }
 
+		
+		
+		
+		// unlock button
+        // Rectangle {
+        // id: unlockbutton
+        //  
+        //    width: height
+        //    height: vpx(40)
+        //    anchors { right: parent.right; rightMargin: globalMargin + vpx(50) }
+        //    color: focus ? theme.accent : "white"
+        //    radius: height/2
+        //   opacity: focus ? 1 : 0.2
+        //    anchors.verticalCenter: parent.verticalCenter
+        //    onFocusChanged: {
+        //       sfxNav.play()
+        //        if (focus)
+        //            mainList.currentIndex = -1;
+        //        else
+        //            mainList.currentIndex = 0;
+        //    }
+        //  
+        //    Keys.onDownPressed: mainList.focus = true;
+        //    Keys.onPressed: {
+        //        // Accept
+        //        if (api.keys.isAccept(event) && !event.isAutoRepeat) {
+        //           event.accepted = true;
+        //            unlockScreen();            
+        //        }
+        //        // Back
+        //        if (api.keys.isCancel(event) && !event.isAutoRepeat) {
+        //            event.accepted = true;
+        //            mainList.focus = true;
+        //        }
+        //    }
+        //    // Mouse/touch functionality
+        //    MouseArea {
+        //        anchors.fill: parent
+        //        hoverEnabled: settings.MouseHover == "Yes"
+        //        onEntered: unlockbutton.focus = true;
+        //        onExited: unlockbutton.focus = false;
+        //        onClicked: unlockScreen();
+        //    }
+        // }
+	    //
+		// 
+        //Image {
+        //id: unlockicon
+        // 
+        //    width: height
+        //    height: vpx(24)
+        //    anchors.centerIn: unlockbutton
+        //    smooth: true
+        //    asynchronous: true
+        //    source: "http://forbidden.gg/assets/media/theme/lock.png"
+        //    opacity: root.focus ? 0.8 : 0.5
+        //}
+		
+		
 		
 		// chat button
 		    Rectangle {
@@ -288,42 +362,19 @@ id: root
 
             width: height
             height: vpx(40)
-            anchors { left: parent.left; leftMargin: vpx(20) }
+            anchors { left: parent.left; leftMargin: globalMargin + vpx(0) }
             color: focus ? theme.accent : "white"
             radius: height/2
             opacity: focus ? 1 : 0.2
             anchors.verticalCenter: parent.verticalCenter
-            onFocusChanged: {
-                sfxNav.play()
-                if (focus)
-                    mainList.currentIndex = -1;
-                else
-                    mainList.currentIndex = 0;
-            }
 
-            Keys.onDownPressed: mainList.focus = true;
-            Keys.onPressed: {
-                // Accept
-                if (api.keys.isAccept(event) && !event.isAutoRepeat) {
-                    event.accepted = true;       
-                }
-                // Back
-                if (api.keys.isCancel(event) && !event.isAutoRepeat) {
-                    event.accepted = true;
-                    mainList.focus = true;
-                }
-            }
             // Mouse/touch functionality
             MouseArea {
                 anchors.fill: parent
-                hoverEnabled: settings.MouseHover == "Yes"
-                onEntered: chatbutton.focus = true;
-                onExited: chatbutton.focus = false;
                 onClicked: chatScreen();
-
             }
+            
         }
-		
 		
 		Image {
         id: chaticon
@@ -333,10 +384,9 @@ id: root
             anchors.centerIn: chatbutton
             smooth: true
             asynchronous: true
-            source: "../assets/images/chat.png"
+            source: "http://forbidden.gg/assets/media/theme/chat.png"
             opacity: root.focus ? 0.8 : 0.5
         }
-		
 		
 		// website button
 		    Rectangle {
@@ -344,40 +394,18 @@ id: root
 
             width: height
             height: vpx(40)
-            anchors { left: parent.left; leftMargin: vpx(70) }
+            anchors { left: parent.left; leftMargin: globalMargin + vpx(50) }
             color: focus ? theme.accent : "white"
             radius: height/2
             opacity: focus ? 1 : 0.2
             anchors.verticalCenter: parent.verticalCenter
-            onFocusChanged: {
-                sfxNav.play()
-                if (focus)
-                    mainList.currentIndex = -1;
-                else
-                    mainList.currentIndex = 0;
-            }
 
-            Keys.onDownPressed: mainList.focus = true;
-            Keys.onPressed: {
-                // Accept
-                if (api.keys.isAccept(event) && !event.isAutoRepeat) {
-                    event.accepted = true;       
-                }
-                // Back
-                if (api.keys.isCancel(event) && !event.isAutoRepeat) {
-                    event.accepted = true;
-                    mainList.focus = true;
-                }
-            }
             // Mouse/touch functionality
             MouseArea {
                 anchors.fill: parent
-                hoverEnabled: settings.MouseHover == "Yes"
-                onEntered: websitebutton.focus = true;
-                onExited: websitebutton.focus = false;
                 onClicked: websiteScreen();
-
             }
+
         }
 		
 
@@ -389,7 +417,7 @@ id: root
             anchors.centerIn: websitebutton
             smooth: true
             asynchronous: true
-            source: "../assets/images/website.png"
+            source: "http://forbidden.gg/assets/media/theme/website.png"
             opacity: root.focus ? 0.8 : 0.5
         }
 
@@ -401,45 +429,20 @@ id: root
 
             width: height
             height: vpx(40)
-            anchors { left: parent.left; leftMargin: vpx(120) }
+            anchors { left: parent.left; leftMargin: globalMargin + vpx(100) }
             color: focus ? theme.accent : "white"
             radius: height/2
             opacity: focus ? 1 : 0.2
             anchors.verticalCenter: parent.verticalCenter
-            onFocusChanged: {
-                sfxNav.play()
-                if (focus)
-                    mainList.currentIndex = -1;
-                else
-                    mainList.currentIndex = 0;
-            }
 
-            Keys.onDownPressed: mainList.focus = true;
-            Keys.onPressed: {
-                // Accept
-                if (api.keys.isAccept(event) && !event.isAutoRepeat) {
-                    event.accepted = true;       
-                }
-                // Back
-                if (api.keys.isCancel(event) && !event.isAutoRepeat) {
-                    event.accepted = true;
-                    mainList.focus = true;
-                }
-            }
             // Mouse/touch functionality
             MouseArea {
                 anchors.fill: parent
-                hoverEnabled: settings.MouseHover == "Yes"
-                onEntered: wikibutton.focus = true;
-                onExited: wikibutton.focus = false;
                 onClicked: wikiScreen();
-
             }
+
         }
-		
-		
-		
-		
+				
 		Image {
         id: wikiicon
 
@@ -448,7 +451,7 @@ id: root
             anchors.centerIn: wikibutton
             smooth: true
             asynchronous: true
-            source: "../assets/images/wiki.png"
+            source: "http://forbidden.gg/assets/media/theme/wiki.png"
             opacity: root.focus ? 0.8 : 0.5
         }
 
@@ -461,44 +464,20 @@ id: root
 
             width: height
             height: vpx(40)
-            anchors { left: parent.left; leftMargin: vpx(170) }
+            anchors { left: parent.left; leftMargin: globalMargin + vpx(150) }
             color: focus ? theme.accent : "white"
             radius: height/2
             opacity: focus ? 1 : 0.2
             anchors.verticalCenter: parent.verticalCenter
-            onFocusChanged: {
-                sfxNav.play()
-                if (focus)
-                    mainList.currentIndex = -1;
-                else
-                    mainList.currentIndex = 0;
-            }
 
-            Keys.onDownPressed: mainList.focus = true;
-            Keys.onPressed: {
-                // Accept
-                if (api.keys.isAccept(event) && !event.isAutoRepeat) {
-                    event.accepted = true;       
-                }
-                // Back
-                if (api.keys.isCancel(event) && !event.isAutoRepeat) {
-                    event.accepted = true;
-                    mainList.focus = true;
-                }
-            }
             // Mouse/touch functionality
             MouseArea {
                 anchors.fill: parent
-                hoverEnabled: settings.MouseHover == "Yes"
-                onEntered: eventsbutton.focus = true;
-                onExited: eventsbutton.focus = false;
                 onClicked: eventsScreen();
-
             }
+            
         }
-		
-		
-		
+
 		Image {
         id: eventsicon
 
@@ -507,51 +486,30 @@ id: root
             anchors.centerIn: eventsbutton
             smooth: true
             asynchronous: true
-            source: "../assets/images/events.png"
+            source: "http://forbidden.gg/assets/media/theme/events.png"
             opacity: root.focus ? 0.8 : 0.5
         }
 
 
 // twitter button
+
 		    Rectangle {
         id: twitterbutton
 
             width: height
             height: vpx(40)
-            anchors { left: parent.left; leftMargin: vpx(220) }
+            anchors { left: parent.left; leftMargin: globalMargin + vpx(200) }
             color: focus ? theme.accent : "white"
             radius: height/2
             opacity: focus ? 1 : 0.2
             anchors.verticalCenter: parent.verticalCenter
-            onFocusChanged: {
-                sfxNav.play()
-                if (focus)
-                    mainList.currentIndex = -1;
-                else
-                    mainList.currentIndex = 0;
-            }
-
-            Keys.onDownPressed: mainList.focus = true;
-            Keys.onPressed: {
-                // Accept
-                if (api.keys.isAccept(event) && !event.isAutoRepeat) {
-                    event.accepted = true;       
-                }
-                // Back
-                if (api.keys.isCancel(event) && !event.isAutoRepeat) {
-                    event.accepted = true;
-                    mainList.focus = true;
-                }
-            }
+          
             // Mouse/touch functionality
             MouseArea {
                 anchors.fill: parent
-                hoverEnabled: settings.MouseHover == "Yes"
-                onEntered: twitterbutton.focus = true;
-                onExited: twitterbutton.focus = false;
                 onClicked: twitterScreen();
-
             }
+
         }
 		
 		
@@ -563,72 +521,11 @@ id: root
             anchors.centerIn: twitterbutton
             smooth: true
             asynchronous: true
-            source: "../assets/images/twitter.png"
+            source: "http://forbidden.gg/assets/media/theme/twitter.png"
             opacity: root.focus ? 0.8 : 0.5
         }
 		
-		
-// facebook button
-		    Rectangle {
-        id: facebookbutton
 
-            width: height
-            height: vpx(40)
-            anchors { left: parent.left; leftMargin: vpx(270) }
-            color: focus ? theme.accent : "white"
-            radius: height/2
-            opacity: focus ? 1 : 0.2
-            anchors.verticalCenter: parent.verticalCenter
-            onFocusChanged: {
-                sfxNav.play()
-                if (focus)
-                    mainList.currentIndex = -1;
-                else
-                    mainList.currentIndex = 0;
-            }
-
-            Keys.onDownPressed: mainList.focus = true;
-            Keys.onPressed: {
-                // Accept
-                if (api.keys.isAccept(event) && !event.isAutoRepeat) {
-                    event.accepted = true;       
-                }
-                // Back
-                if (api.keys.isCancel(event) && !event.isAutoRepeat) {
-                    event.accepted = true;
-                    mainList.focus = true;
-                }
-            }
-            // Mouse/touch functionality
-            MouseArea {
-                anchors.fill: parent
-                hoverEnabled: settings.MouseHover == "Yes"
-                onEntered: facebookbutton.focus = true;
-                onExited: facebookbutton.focus = false;
-                onClicked: facebookScreen();
-
-            }
-        }
-				
-		
-				Image {
-        id: facebookicon
-
-            width: height
-            height: vpx(24)
-            anchors.centerIn: facebookbutton
-            smooth: true
-            asynchronous: true
-            source: "../assets/images/facebook.png"
-            opacity: root.focus ? 0.8 : 0.5
-        }
-
-
-
-
-		
-		
-		
     }
 
     // Using an object model to build the list
@@ -661,14 +558,14 @@ id: root
             Component {
             id: featuredDelegate
 
-                Image {
+                AnimatedImage {
                 id: background
 
                     property bool selected: ListView.isCurrentItem && featuredlist.focus
                     width: featuredlist.width
                     height: featuredlist.height
                     source: Utils.fanArt(modelData);
-                    sourceSize { width: featuredlist.width; height: featuredlist.height }
+                    //sourceSize { width: featuredlist.width; height: featuredlist.height }
                     fillMode: Image.PreserveAspectCrop
                     asynchronous: true
                         
@@ -685,7 +582,7 @@ id: root
                         Behavior on opacity { PropertyAnimation { duration: 150; easing.type: Easing.OutQuart; easing.amplitude: 2.0; easing.period: 1.5 } }
                     }
 
-                    Image {
+                    AnimatedImage {
                     id: specialLogo
 
                         width: parent.height - vpx(20)
@@ -693,7 +590,7 @@ id: root
                         source: Utils.logo(modelData)
                         fillMode: Image.PreserveAspectFit
                         asynchronous: true
-                        sourceSize { width: 256; height: 256 }
+                        //sourceSize: Qt.size(specialLogo.width, specialLogo.height)
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
                         opacity: featuredlist.focus ? 1 : 0.5
@@ -772,7 +669,7 @@ id: root
             orientation: ListView.Horizontal
             preferredHighlightBegin: vpx(0)
             preferredHighlightEnd: parent.width - vpx(60)
-            highlightRangeMode: ListView.StrictlyEnforceRange
+            highlightRangeMode: ListView.ApplyRange
             snapMode: ListView.SnapOneItem
             highlightMoveDuration: 100
             keyNavigationWraps: true
@@ -789,7 +686,7 @@ id: root
 
             Component.onCompleted: positionViewAtIndex(savedIndex, ListView.End)
 
-            model: api.collections//Utils.reorderCollection(api.collections);
+            model: Utils.reorderCollection(api.collections);
             delegate: Rectangle {
                 property bool selected: ListView.isCurrentItem && platformlist.focus
                 width: (root.width - globalMargin * 2) / 7.0
@@ -808,8 +705,8 @@ id: root
                     anchors.fill: parent
                     anchors.centerIn: parent
                     anchors.margins: vpx(15)
-                    source: "../assets/images/logospng/" + Utils.processPlatformName(modelData.shortName) + ".png"
-                    sourceSize { width: 256; height: 128 }
+                    source: "http://forbidden.gg/assets/media/theme/collections/" + Utils.processPlatformName(modelData.shortName) + ".png"
+					sourceSize { width: 128; height: 64 }
                     fillMode: Image.PreserveAspectFit
                     asynchronous: true
                     smooth: true
@@ -879,19 +776,19 @@ id: root
             property var currentList: list1
             property var collection: collection1
 
-            enabled: collection.enabled
-            visible: collection.enabled
+            enabled: featuredItems.games.count > 0 ? collection.enabled : collection.disabled
+            visible: featuredItems.games.count > 0 ? collection.enabled : collection.disabled
 
-            height: collection.height
+            height: featuredItems.games.count > 0 ? collection.height : 0
 
-            itemWidth: collection.itemWidth
-            itemHeight: collection.itemHeight
+            itemWidth: featuredItems.games.count > 0 ? collection.itemWidth : 0
+            itemHeight: featuredItems.games.count > 0 ? collection.itemHeight : 0
 
-            title: collection.title
+            title: featuredItems.games.count > 0 ? "Vaults" : ""
             search: collection.search
 
             focus: selected
-            width: root.width - globalMargin * 2
+            width: featuredItems.games.count > 0 ? root.width - globalMargin * 2 : 0
             x: globalMargin - vpx(8)
 
             savedIndex: (storedHomePrimaryIndex === currentList.ObjectModel.index) ? storedHomeSecondaryIndex : 0
@@ -1053,13 +950,34 @@ id: root
             event.accepted = true;
             settingsScreen();
         }
+		// Information
+	     if (api.keys.isDetails(event) && !event.isAutoRepeat && skinLogoOption > 1) {
+            event.accepted = true;
+            informationScreen();
+        }	
+    }
+
+    // Unlocked
+    ListModel {
+        id: gridviewHelpModelUnlocked
+
+        ListElement {
+            name: "Fundraiser"
+            button: "details"
+        }
+        ListElement {
+            name: "Settings"
+            button: "filters"
+        }
+        ListElement {
+            name: "Select"
+            button: "accept"
+        }
     }
 	
-	
-
-    // Helpbar buttons
+	    // Locked
     ListModel {
-        id: gridviewHelpModel
+        id: gridviewHelpModelLocked
 
         ListElement {
             name: "Settings"
@@ -1070,10 +988,17 @@ id: root
             button: "accept"
         }
     }
-
+	
     onFocusChanged: { 
+		    if (skinLogoOption > 1) {
         if (focus)
-            currentHelpbarModel = gridviewHelpModel;
+            currentHelpbarModel = gridviewHelpModelUnlocked;
+			}	
+			else {
+			if (focus)
+            currentHelpbarModel = gridviewHelpModelLocked;
+			}
+			
     }
 
 }

@@ -188,6 +188,15 @@ void ProviderManager::onGameFavoriteChanged(const QVector<model::Game*>& all_gam
         provider->onGameFavoriteChanged(all_games);
 }
 
+void ProviderManager::onGameWhitelistChanged(const QVector<model::Game*>& all_games)
+{
+    if (m_future.isRunning())
+        return;
+
+    for (const auto& provider : AppSettings::providers)
+        provider->onGameWhitelistChanged(all_games);
+}
+
 void ProviderManager::onGameLaunched(model::GameFile* const game)
 {
     if (m_future.isRunning())

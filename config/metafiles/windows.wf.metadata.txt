@@ -1,0 +1,61 @@
+// (c) Team Forbidden LLC. All rights reserved.
+collection: WF
+shortname: WF
+launch: "{file.path}"
+game: Warfork
+file: ../../applications/warfork/Warfork.app/Contents/Resources/warfork_x64.exe
+developer: Team Forbidden LLC.
+publisher: Team Forbidden LLC.
+genre: Arena FPS
+description: A demanding fast paced first person shooter with a focus on speed, aim, movement, and above all competitive play.
+assets.logo: ../../assets/media/warfork/logo.png
+assets.screenshot: ../../assets/media/warfork/ss_1.jpg
+assets.screenshot: ../../assets/media/warfork/ss_2.jpg
+assets.screenshot: ../../assets/media/warfork/ss_3.jpg
+assets.screenshot: ../../assets/media/warfork/ss_4.jpg
+version: 2.11
+source: https://github.com/TeamForbiddenLLC/warfork-qfusion
+website: https://warfork.com
+x-commands:  
+  bot_dummy;0;<0/1>;If enabled, bots will be completely stationary and not fire any weapons.
+  bot_showcombat;0;<0/1>;If enabled, combat messages for bots will be displayed. Chasecam and botdebug must be enabled as well for this command to work. Example Screenshot: bot_showcombat "1"
+  bot_showlrgoal;0;<0/1>;If enabled, the long range goals for bots will be displayed.
+Chasecam and botdebug must be enabled as well for this command to work. Example Screenshot: bot_showlrgoal "1"
+  bot_showpath;0;<0/1>;If enabled, a path will be drawn that the bot is following.
+Chasecam and botdebug must be enabled as well for this command to work. Example Screenshot: bot_showpath "1"
+  bot_showsrgoal;0;<0/1>;If enabled, the short range goals for bots will be displayed.
+Chasecam and botdebug must be enabled as well for this command to work. Example Screenshot: bot_showsrgoal "1"
+
+
+collection: WF
+shortname: WF
+launch: "{file.path}"
+game: Warfork Testing
+file: ../../applications/warfork-testing/Warfork.app/Contents/Resources/warfork_x64.exe
+developer: Team Forbidden LLC.
+publisher: Team Forbidden LLC.
+genre: Arena FPS
+description: This is not a beta version, but an assortment of things we're testing.
+assets.logo: ../../assets/media/warfork-testing/logo.png
+assets.screenshot: ../../assets/media/warfork-testing/ss_1.jpg
+assets.screenshot: ../../assets/media/warfork-testing/ss_2.jpg
+assets.screenshot: ../../assets/media/warfork-testing/ss_3.jpg
+assets.screenshot: ../../assets/media/warfork-testing/ss_4.jpg
+version: Testing
+source: https://github.com/TeamForbiddenLLC/warfork-qfusion
+website: https://warfork.com
+
+collection: WF
+shortname: WF
+launch: "{file.path}"
+game: NetRadiant-custom
+file: ../../applications/netradiant-custom/unified/radiant.exe
+developer: Garux
+publisher: Garux
+genre: Mapping Tools
+description: The open-source, cross-platform level editor for id Tech based games.
+assets.logo: ../../assets/media/netradiant-custom/logo.png
+assets.screenshot: ../../assets/media/netradiant-custom/ss_1.png
+version: 20210105
+source: https://github.com/Garux/netradiant-custom
+website: https://garux.github.io/NRC/

@@ -41,12 +41,43 @@ Game::Game(QString name, QObject* parent)
 QString Game::developerStr() const { return joined_list(m_data.developers); }
 QString Game::publisherStr() const { return joined_list(m_data.publishers); }
 QString Game::genreStr() const { return joined_list(m_data.genres); }
+QString Game::websiteStr() const { return joined_list(m_data.websites); }
+QString Game::sourceStr() const { return joined_list(m_data.sources); }
+QString Game::versionStr() const { return joined_list(m_data.versions); }
+QString Game::itemStr() const { return joined_list(m_data.items); }
+QString Game::tierStr() const { return joined_list(m_data.tiers); }
+QString Game::twitterStr() const { return joined_list(m_data.twitters); }
+QString Game::facebookStr() const { return joined_list(m_data.facebooks); }
+QString Game::instagramStr() const { return joined_list(m_data.instagrams); }
+QString Game::snapchatStr() const { return joined_list(m_data.snapchats); }
+QString Game::pinterestStr() const { return joined_list(m_data.pinterests); }
+QString Game::youtubeStr() const { return joined_list(m_data.youtubes); }
+QString Game::tiktokStr() const { return joined_list(m_data.tiktoks); }
+QString Game::discordStr() const { return joined_list(m_data.discords); }
+QString Game::twitchStr() const { return joined_list(m_data.twitchs); }
+QString Game::externalvideoStr() const { return joined_list(m_data.externalvideos); }
+QString Game::versiontitleStr() const { return joined_list(m_data.versiontitles); }
+QString Game::developertitleStr() const { return joined_list(m_data.developertitles); }
+QString Game::startupStr() const { return joined_list(m_data.startups); }
+QString Game::signatureStr() const { return joined_list(m_data.signatures); }
+QString Game::vanityStr() const { return joined_list(m_data.vanitys); }
+QString Game::thankyouStr() const { return joined_list(m_data.thankyous); }
+QString Game::whoStr() const { return joined_list(m_data.whos); }
+QString Game::artistStr() const { return joined_list(m_data.artists); }
+QString Game::welcomeStr() const { return joined_list(m_data.welcomes); }
 QString Game::tagStr() const { return joined_list(m_data.tags); }
 
 Game& Game::setFavorite(bool new_val)
 {
     m_data.is_favorite = new_val;
     emit favoriteChanged();
+    return *this;
+}
+
+Game& Game::setWhitelist(bool new_val)
+{
+    m_data.is_whitelist = new_val;
+    emit whitelistChanged();
     return *this;
 }
 
