@@ -32,6 +32,7 @@
 <file>fvi/Settings/SignatureScreen.qml</file>
 <file>fvi/Settings/UnlockScreen.qml</file>
 <file>fvi/Settings/LaunchScreen.qml</file>
+<file>fvi/Settings/WelcomeScreen.qml</file>
 <file>fvi/ShowcaseView/ShowcaseViewMenu.qml</file>
 <file>fvi/VerticalList/SoftwareListMenu.qml</file>
 <file>fvi/assets/fonts/OpenSans-Bold.ttf</file>
