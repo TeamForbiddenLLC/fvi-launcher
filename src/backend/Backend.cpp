@@ -43,7 +43,7 @@ void on_app_close(AppCloseType type)
         default: break;
     }
 
-    qInfo().noquote() << tr_log("Closing FVI, goodbye!");
+    qInfo().noquote() << tr_log("Closing JSF, goodbye!");
     Log::close();
 
     QCoreApplication::quit();

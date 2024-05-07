@@ -155,7 +155,7 @@ FocusScope {
         Text {
             id: info
 
-            text: qsTr("FVI will look for collection files (metadata.FVI.txt or "
+            text: qsTr("JSF will look for collection files (metadata.FVI.txt or "
                      + "metadata.txt)\nin the following directories:") + api.tr
             color: "#eee"
             font.family: globalFonts.sans

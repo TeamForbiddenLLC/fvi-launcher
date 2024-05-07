@@ -66,12 +66,12 @@ MenuScreen {
                     text: qsTr("About") + api.tr
                 }
                 Text {
-                    property string programInfo: qsTr("FVI Launcher, version <tt>%1</tt> (%2)")
+                    property string programInfo: qsTr("JSF Launcher, version <tt>%1</tt> (%2)")
                         .arg(api.internal.meta.gitRevision)
                         .arg(api.internal.meta.gitDate)
                         + api.tr
 
-                    text: programInfo + "<br>Copyright \u00a9 2021 Team Forbidden LLC."
+                    text: programInfo + "<br>Copyright \u00a9 2024 Team Forbidden LLC."
                     color: "#eee"
                     font.pixelSize: bodyFontSize
                     font.family: globalFonts.sans

@@ -25,7 +25,7 @@ Window {
     visible: true
     width: 1280
     height: 720
-    title: "FVI"
+    title: "JSF"
     color: "#000"
 
     visibility: api.internal.settings.fullscreen

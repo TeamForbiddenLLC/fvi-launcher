@@ -40,9 +40,9 @@ int main(int argc, char *argv[])
     QSettings::setDefaultFormat(QSettings::IniFormat);
 
     QGuiApplication app(argc, argv);
-    app.setApplicationName(QStringLiteral("fvi-launcher"));
+    app.setApplicationName(QStringLiteral("jsf-launcher"));
     app.setApplicationVersion(QStringLiteral(GIT_REVISION));
-    app.setOrganizationName(QStringLiteral("fvi-launcher"));
+    app.setOrganizationName(QStringLiteral("jsf-launcher"));
     app.setOrganizationDomain(QStringLiteral("forbidden.gg"));
     app.setWindowIcon(QIcon(QStringLiteral(":/icon.png")));
 
@@ -72,7 +72,7 @@ backend::CliArgs handle_cli_args(QGuiApplication& app)
 {
     QCommandLineParser argparser;
     argparser.setApplicationDescription(tr_log(
-        "\nFVI is a graphical frontend for browsing your game library (especially\n"
+        "\nJSF is a graphical frontend for browsing your game library (especially\n"
         "retro games) and launching them from one place. It's focusing on customization,\n"
         "cross platform support (including embedded devices) and high performance."));
 
@@ -94,7 +94,7 @@ backend::CliArgs handle_cli_args(QGuiApplication& app)
 
     const QCommandLineOption arg_menu_appclose = add_cli_option(argparser,
         QStringLiteral("disable-menu-appclose"),
-        tr_log("Hides the closing FVI entry in the main menu"));
+        tr_log("Hides the closing JSF entry in the main menu"));
 
     const QCommandLineOption arg_menu_settings = add_cli_option(argparser,
         QStringLiteral("disable-menu-settings"),
@@ -111,7 +111,7 @@ backend::CliArgs handle_cli_args(QGuiApplication& app)
     const QCommandLineOption arg_gamepad_autoconfig = add_cli_option(argparser,
         QStringLiteral("disable-gamepad-autoconfig"),
         tr_log("Disables the automatic layout detection for connected gamepads.\n"
-               "When you connect a gamepad, FVI tries to guess its button and axis layout "
+               "When you connect a gamepad, JSF tries to guess its button and axis layout "
                "automatically based on a list of known devices. Unfortunately this doesn't seem "
                "to work perfectly with some platforms and devices (eg. arcades), in which case "
                "you can disable this feature here."));

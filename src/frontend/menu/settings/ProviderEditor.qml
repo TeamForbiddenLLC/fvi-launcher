@@ -80,7 +80,7 @@ FocusScope {
         Text {
             id: info
 
-            text: qsTr("When looking for games, FVI can use the following data sources, if enabled:") + api.tr
+            text: qsTr("When looking for games, JSF can use the following data sources, if enabled:") + api.tr
             color: "#eee"
             font.family: globalFonts.sans
             font.pixelSize: vpx(18)

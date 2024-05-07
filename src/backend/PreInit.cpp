@@ -45,7 +45,7 @@ namespace {
 
 void print_metainfo()
 {
-    Log::info(tr_log("FVI " GIT_REVISION " (" GIT_DATE ")"));
+    Log::info(tr_log("JSF " GIT_REVISION " (" GIT_DATE ")"));
     Log::info(tr_log("Running on %1 (%2, %3)").arg(
         QSysInfo::prettyProductName(),
         QSysInfo::currentCpuArchitecture(),

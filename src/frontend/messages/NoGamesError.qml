@@ -20,8 +20,8 @@ import QtQuick 2.0
 
 Error {
     title: qsTr("No games found :(") + api.tr
-    details: qsTr("FVI couldn't find any games on your device. If you have not"
-                + " set up FVI yet, you can find the documentation here: <i>%1</i>."
+    details: qsTr("JSF couldn't find any games on your device. If you have not"
+                + " set up JSF yet, you can find the documentation here: <i>%1</i>."
                 + "<br>"
                 + "If you still see this message, make sure your config files are readable,"
                 + " exist in one of the expected locations and are in the expected format.")
